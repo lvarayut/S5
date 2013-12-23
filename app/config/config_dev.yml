@@ -34,3 +34,14 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+# Disable caching in Twig
+twig:
+    cache: false
+    debug: true
+
+services:
+    twig.extension.debug:
+        class: Twig_Extension_Debug
+        tags:
+            - { name: 'twig_extension' }
