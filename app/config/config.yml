@@ -87,6 +87,6 @@ braincrafted_bootstrap:
         knp_menu: true
         knp_paginator: true
     customize:
-        variables_file: ~
+        variables_file: %kernel.root_dir%/Resources/less/variables.less
         bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
         bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig

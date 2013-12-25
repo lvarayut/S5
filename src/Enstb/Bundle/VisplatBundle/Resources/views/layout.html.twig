@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>{% block title %}ENSTB - Visualization Platform{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+    <!-- Bootstrap -->
+    <link href="{{ asset('/bootstrap/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    {% endblock %}
+
+    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+</head>
+
+<body>
+<h1>Hello, world!</h1>
+{% block body %}{% endblock %}
+
+{% block javascripts %}
+<!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all JavaScripts, compiled by Assetic -->
+<script src="{{ asset('/bootstrap/js/bootstrap.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

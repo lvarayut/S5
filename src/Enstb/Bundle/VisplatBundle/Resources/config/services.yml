@@ -1,0 +1,7 @@
+parameters:
+#    enstb_visplat.example.class: Enstb\Bundle\VisplatBundle\Example
+
+services:
+#    enstb_visplat.example:
+#        class: %enstb_visplat.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

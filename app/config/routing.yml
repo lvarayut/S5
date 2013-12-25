@@ -1,0 +1,4 @@
+enstb_visplat:
+    resource: "@EnstbVisplatBundle/Resources/config/routing.yml"
+    prefix:   /
+
