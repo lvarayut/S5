@@ -1,3 +1,4 @@
+/* Navbar */
 .vp-navbar{
     margin-bottom: 0;
     border-radius: 0;
@@ -13,4 +14,21 @@
     position: fixed;
     top: 0;
     width: 100%
+}
+
+/* Login form*/
+
+.vp-login-wrapper {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+}
+.vp-form-login{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.vp-form-title{
+    text-align: center;
 }

@@ -16,9 +16,18 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            // Integrate Bootstrap 3.0.*
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
+            // Sonata dependencies and storage
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\jQueryBundle\SonatajQueryBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
 
             new Enstb\Bundle\VisplatBundle\EnstbVisplatBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

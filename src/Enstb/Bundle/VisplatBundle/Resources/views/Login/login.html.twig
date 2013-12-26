@@ -1,10 +1,13 @@
-{% extends 'EnstbVisplatBundle::layout.html.twig' %}
+{% extends 'EnstbVisplatBundle::base.html.twig' %}
+{% block bodyclass %}class="vp-login-wrapper"{% endblock %}
 {% block body %}
 <div class="container">
-
-    <form class="form-signin" role="form">
-        <h1>Visualization Platform</h1>
-        <h2 class="form-signin-heading">Please sign in</h2>
+    <div class="vp-form-title">
+        <h1>S5 - Visualization Platform</h1>
+        <h4>Sensors data analysis platform for assisting elderly people</h4>
+    </div>
+    <form class="vp-form-login" role="form">
+        <h2>Please sign in</h2>
         <input type="text" class="form-control" placeholder="Email address" required="" autofocus="">
         <input type="password" class="form-control" placeholder="Password" required="">
         <label class="checkbox">
