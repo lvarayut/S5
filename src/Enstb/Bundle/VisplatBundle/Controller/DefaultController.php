@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('EnstbVisplatBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig');
     }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %}ENSTB - Visualization Platform{% endblock %}</title>
+    <meta name="description" content="Sensors data analysis platform for assisting elderly people">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+    <!-- Bootstrap -->
+    <link href="{{ asset('/bootstrap/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <!-- Our customized css-->
+    <link href="{{ asset('/bundles/enstbvisplat/css/visplat.css') }}" rel="stylesheet" media="screen">
+    {% endblock %}
+
+    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+    <link rel="shortcut icon" href="{{ asset('/bundles/enstbvisplat/images/favicon.ico') }}" />
+
+</head>
+
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}
+<!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all JavaScripts, compiled by Assetic -->
+<script src="{{ asset('/bootstrap/js/bootstrap.js') }}"></script>
+<!-- Our customized js -->
+<script src="{{ asset('/bundles/enstbvisplat/js/visplat.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>
