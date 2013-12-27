@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: @EnstbVisplatBundle/Resources/config/admin.yml }
 
 framework:
     #esi:             ~
@@ -94,6 +95,9 @@ braincrafted_bootstrap:
 # Sonata
 sonata_admin:
     title: S5 - Visualization Platform Administrator
+    title_logo: bundles/enstbvisplat/images/logo_TB.png
+    security:
+        handler: sonata.admin.security.handler.role
 sonata_block:
     default_contexts: [cms]
     blocks:

@@ -1,0 +1,7 @@
+parameters:
+#    enstb_data_management.example.class: Enstb\Bundle\DataManagementBundle\Example
+
+services:
+#    enstb_data_management.example:
+#        class: %enstb_data_management.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

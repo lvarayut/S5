@@ -1,0 +1,3 @@
+enstb_data_management_homepage:
+    pattern:  /generate
+    defaults: { _controller: EnstbDataManagementBundle:Default:index }

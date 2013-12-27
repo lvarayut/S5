@@ -1,3 +1,7 @@
+enstb_data_management:
+    resource: "@EnstbDataManagementBundle/Resources/config/routing.yml"
+    prefix:   /data
+
 enstb_visplat:
     resource: "@EnstbVisplatBundle/Resources/config/routing.yml"
     prefix:   /

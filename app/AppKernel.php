@@ -27,7 +27,7 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
 
             new Enstb\Bundle\VisplatBundle\EnstbVisplatBundle(),
-
+            new Enstb\Bundle\DataManagementBundle\EnstbDataManagementBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
