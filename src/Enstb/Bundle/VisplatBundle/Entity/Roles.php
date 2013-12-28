@@ -124,12 +124,12 @@ class Roles
     /**
      * Add Users
      *
-     * @param \Enstb\Bundle\VisplatBundle\Entity\Users $users
+     * @param \Enstb\Bundle\VisplatBundle\Entity\Users $user
      * @return Roles
      */
-    public function addUser(\Enstb\Bundle\VisplatBundle\Entity\Users $users)
+    public function addUser(\Enstb\Bundle\VisplatBundle\Entity\Users $user)
     {
-        $this->Users[] = $users;
+        $this->Users->add($user);
 
         return $this;
     }
@@ -137,11 +137,11 @@ class Roles
     /**
      * Remove Users
      *
-     * @param \Enstb\Bundle\VisplatBundle\Entity\Users $users
+     * @param \Enstb\Bundle\VisplatBundle\Entity\Users $user
      */
-    public function removeUser(\Enstb\Bundle\VisplatBundle\Entity\Users $users)
+    public function removeUser(\Enstb\Bundle\VisplatBundle\Entity\Users $user)
     {
-        $this->Users->removeElement($users);
+        $this->Users->removeElement($user);
     }
 
     /**

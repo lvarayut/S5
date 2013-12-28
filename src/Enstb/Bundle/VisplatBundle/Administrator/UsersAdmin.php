@@ -2,6 +2,7 @@
 
 namespace Enstb\Bundle\VisplatBundle\Administrator;
 
+
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -18,8 +19,12 @@ class UsersAdmin extends Admin
             ->add('Email') //if no type is specified, SonataAdminBundle tries to guess it
             ->add('Username')
             ->add('Password')
-            ->add('Roles','sonata_type_model',array('expanded' => true, 'compound' => true, 'multiple' => true))
-    ;
+            ->add('Roles','sonata_type_model',array(
+                'expanded' => true,
+                'compound' => true,
+                'multiple' => true,
+                'by_reference' => false
+            ));
     }
 
     // Fields to be shown on filter forms
@@ -42,4 +47,6 @@ class UsersAdmin extends Admin
             ->add('Roles','sonata_type_model')
         ;
     }
+
+
 }

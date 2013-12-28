@@ -19,13 +19,14 @@ Enstb\Bundle\VisplatBundle\Entity\Roles:
     manyToMany:
         Users:
             targetEntity: Users
+            inversedBy: Roles
             joinTable:
                 name: Users_Roles
                 joinColumns:
-                    UserId:
+                    RoleId:
                         referencedColumnName: Id
                 inverseJoinColumns:
-                    RoleId:
+                    UserId:
                         referencedColumnName: Id
     lifecycleCallbacks:
         prePersist: [ setDateCreatedValue ]

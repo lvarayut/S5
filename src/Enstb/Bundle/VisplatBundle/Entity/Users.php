@@ -211,9 +211,11 @@ class Users
      * @param \Enstb\Bundle\VisplatBundle\Entity\Roles $roles
      * @return Users
      */
-    public function addRole(\Enstb\Bundle\VisplatBundle\Entity\Roles $roles)
+    public function addRole(\Enstb\Bundle\VisplatBundle\Entity\Roles $role)
     {
-        $this->Roles[] = $roles;
+        // Link each role with the user
+        $role->addUser($this);
+        $this->Roles->add($role);
 
         return $this;
     }
@@ -221,11 +223,13 @@ class Users
     /**
      * Remove Roles
      *
-     * @param \Enstb\Bundle\VisplatBundle\Entity\Roles $roles
+     * @param \Enstb\Bundle\VisplatBundle\Entity\Roles $role
      */
-    public function removeRole(\Enstb\Bundle\VisplatBundle\Entity\Roles $roles)
+    public function removeRole(\Enstb\Bundle\VisplatBundle\Entity\Roles $role)
     {
-        $this->Roles->removeElement($roles);
+        // Link each role with the user
+        $role->removeUser($this);
+        $this->Roles->removeElement($role);
     }
 
     /**
@@ -244,4 +248,11 @@ class Users
     {
         $this->setDateCreated(new \DateTime());
     }
+
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+
 }
