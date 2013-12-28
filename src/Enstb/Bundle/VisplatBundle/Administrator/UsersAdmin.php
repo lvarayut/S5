@@ -18,7 +18,8 @@ class UsersAdmin extends Admin
             ->add('Email') //if no type is specified, SonataAdminBundle tries to guess it
             ->add('Username')
             ->add('Password')
-        ;
+            ->add('Roles','sonata_type_model',array('expanded' => true, 'compound' => true, 'multiple' => true))
+    ;
     }
 
     // Fields to be shown on filter forms
@@ -27,6 +28,7 @@ class UsersAdmin extends Admin
         $datagridMapper
             ->add('Name')
             ->add('LastName')
+            ->add('Roles')
         ;
     }
 
@@ -34,9 +36,10 @@ class UsersAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('Name')
+            ->addIdentifier('Name')
             ->add('LastName')
             ->add('Email')
+            ->add('Roles','sonata_type_model')
         ;
     }
 }

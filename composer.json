@@ -23,7 +23,8 @@
         "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.10.*",
         "sonata-project/admin-bundle": "2.2.9",
-        "sonata-project/doctrine-orm-admin-bundle": "~2.2.5"
+        "sonata-project/doctrine-orm-admin-bundle": "~2.2.5",
+        "sonata-project/intl-bundle": "~2.2.0"
     },
 
     "repositories": [

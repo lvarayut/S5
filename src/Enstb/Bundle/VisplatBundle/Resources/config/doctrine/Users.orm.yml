@@ -29,7 +29,7 @@ Enstb\Bundle\VisplatBundle\Entity\Users:
     manyToMany:
         Roles:
             targetEntity: Roles
-            mappedBy: roles
+            mappedBy: Users
 
     lifecycleCallbacks:
         prePersist: [ setDateCreatedValue ]

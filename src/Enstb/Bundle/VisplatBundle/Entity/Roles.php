@@ -160,4 +160,9 @@ class Roles
     {
         $this->setDateCreated(new \DateTime());
     }
+
+    function __toString()
+    {
+        return $this->getName();
+    }
 }
