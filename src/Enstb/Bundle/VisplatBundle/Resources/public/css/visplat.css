@@ -19,8 +19,8 @@
 /* Login form*/
 
 .vp-login-wrapper {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 80px;
+    padding-bottom: 80px;
     background-color: #eee;
 }
 .vp-form-login{
@@ -31,4 +31,10 @@
 
 .vp-form-title{
     text-align: center;
+}
+
+.vp-form-alert{
+    padding: 7px;
+    margin-bottom: 10px;
+    font-size: 80%;
 }

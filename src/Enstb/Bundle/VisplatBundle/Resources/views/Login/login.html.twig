@@ -1,20 +1,22 @@
 {% extends 'EnstbVisplatBundle::base.html.twig' %}
 {% block bodyclass %}class="vp-login-wrapper"{% endblock %}
 {% block body %}
-<div class="container">
-    <div class="vp-form-title">
-        <h1>S5 - Visualization Platform</h1>
-        <h4>Sensors data analysis platform for assisting elderly people</h4>
-    </div>
-    <form class="vp-form-login" role="form">
-        <h2>Please sign in</h2>
-        <input type="text" class="form-control" placeholder="Email address" required="" autofocus="">
-        <input type="password" class="form-control" placeholder="Password" required="">
-        <label class="checkbox">
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+    <div class="container">
+        <div class="vp-form-title">
+            <h1>S5 - Visualization Platform</h1>
+            <h4>Sensors data analysis platform for assisting elderly people</h4>
+        </div>
+        <form class="vp-form-login" role="form" action="{{ path('login_check') }}" method="POST">
+            {% if error %}
+                <div class="alert alert-danger vp-form-alert">{{ '* ' ~ error.message }}</div>
+            {% endif %}
+            <input type="text" name="_username" class="form-control" placeholder="Username" required="" autofocus="" value="{{ last_username }}">
+            <input type="password" name="_password" class="form-control" placeholder="Password" required="">
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
 
-</div>
+    </div>
 {% endblock %}
