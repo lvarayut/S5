@@ -5,3 +5,11 @@ services:
 #    enstb_visplat.example:
 #        class: %enstb_visplat.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+#    Overwrite the authentication sucess event
+#    In order to pass the username parameter.
+    security.authentication.success_handler:
+        class:  Enstb\Bundle\VisplatBundle\Handler\AuthenticationSuccessHandler
+        arguments:  ["@security.http_utils", {}, @router]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }

@@ -9,7 +9,9 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('EnstbVisplatBundle:Graph:status.html.twig');
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
+            'username' => $_GET['username']
+        ));
     }
 
     public function loginAction()
