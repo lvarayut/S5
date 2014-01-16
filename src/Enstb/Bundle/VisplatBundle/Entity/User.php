@@ -6,56 +6,56 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Users
+ * User
  */
-class Users implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @var integer
      */
-    private $Id;
+    private $id;
 
     /**
      * @var string
      */
-    private $Name;
+    private $name;
 
     /**
      * @var string
      */
-    private $LastName;
+    private $lastName;
 
     /**
      * @var string
      */
-    private $Email;
+    private $email;
 
     /**
      * @var string
      */
-    private $Username;
+    private $username;
 
     /**
      * @var string
      */
-    private $Password;
+    private $password;
 
     /**
      * @var \DateTime
      */
-    private $DateCreated;
+    private $dateCreated;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $Roles;
+    private $roles;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->Roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -65,18 +65,18 @@ class Users implements UserInterface, \Serializable
      */
     public function getId()
     {
-        return $this->Id;
+        return $this->id;
     }
 
     /**
      * Set Name
      *
      * @param string $name
-     * @return Users
+     * @return User
      */
     public function setName($name)
     {
-        $this->Name = $name;
+        $this->name = $name;
 
         return $this;
     }
@@ -88,18 +88,18 @@ class Users implements UserInterface, \Serializable
      */
     public function getName()
     {
-        return $this->Name;
+        return $this->name;
     }
 
     /**
      * Set LastName
      *
      * @param string $lastName
-     * @return Users
+     * @return User
      */
     public function setLastName($lastName)
     {
-        $this->LastName = $lastName;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -111,18 +111,18 @@ class Users implements UserInterface, \Serializable
      */
     public function getLastName()
     {
-        return $this->LastName;
+        return $this->lastName;
     }
 
     /**
      * Set Email
      *
      * @param string $email
-     * @return Users
+     * @return User
      */
     public function setEmail($email)
     {
-        $this->Email = $email;
+        $this->email = $email;
 
         return $this;
     }
@@ -134,18 +134,18 @@ class Users implements UserInterface, \Serializable
      */
     public function getEmail()
     {
-        return $this->Email;
+        return $this->email;
     }
 
     /**
      * Set Username
      *
      * @param string $username
-     * @return Users
+     * @return User
      */
     public function setUsername($username)
     {
-        $this->Username = $username;
+        $this->username = $username;
 
         return $this;
     }
@@ -157,18 +157,18 @@ class Users implements UserInterface, \Serializable
      */
     public function getUsername()
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
      * Set Password
      *
      * @param string $password
-     * @return Users
+     * @return User
      */
     public function setPassword($password)
     {
-        $this->Password = $password;
+        $this->password = $password;
 
         return $this;
     }
@@ -180,18 +180,18 @@ class Users implements UserInterface, \Serializable
      */
     public function getPassword()
     {
-        return $this->Password;
+        return $this->password;
     }
 
     /**
      * Set DateCreated
      *
      * @param \DateTime $dateCreated
-     * @return Users
+     * @return User
      */
     public function setDateCreated($dateCreated)
     {
-        $this->DateCreated = $dateCreated;
+        $this->dateCreated = $dateCreated;
 
         return $this;
     }
@@ -203,44 +203,44 @@ class Users implements UserInterface, \Serializable
      */
     public function getDateCreated()
     {
-        return $this->DateCreated;
+        return $this->dateCreated;
     }
 
     /**
      * Add Roles
      *
-     * @param \Enstb\Bundle\VisplatBundle\Entity\Roles $roles
-     * @return Users
+     * @param \Enstb\Bundle\VisplatBundle\Entity\Role $role
+     * @return User
      */
-    public function addRole(\Enstb\Bundle\VisplatBundle\Entity\Roles $role)
+    public function addRole(\Enstb\Bundle\VisplatBundle\Entity\Role $role)
     {
         // Link each role with the user
         $role->addUser($this);
-        $this->Roles->add($role);
+        $this->roles->add($role);
 
         return $this;
     }
 
     /**
-     * Remove Roles
+     * Remove Role
      *
-     * @param \Enstb\Bundle\VisplatBundle\Entity\Roles $role
+     * @param \Enstb\Bundle\VisplatBundle\Entity\Role $role
      */
-    public function removeRole(\Enstb\Bundle\VisplatBundle\Entity\Roles $role)
+    public function removeRole(\Enstb\Bundle\VisplatBundle\Entity\Role $role)
     {
         // Link each role with the user
         $role->removeUser($this);
-        $this->Roles->removeElement($role);
+        $this->roles->removeElement($role);
     }
 
     /**
-     * Get Roles
+     * Get Role
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getRoles()
     {
-        return $this->Roles->toArray();
+        return $this->roles->toArray();
     }
 
     public function getSalt()
@@ -253,7 +253,7 @@ class Users implements UserInterface, \Serializable
 
     }
 
-    public function equals(Users $user)
+    public function equals(User $user)
     {
         return $user->getUsername() == $this->getUsername();
     }
@@ -277,9 +277,9 @@ class Users implements UserInterface, \Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->Id,
-            $this->Username,
-            $this->Password,
+            $this->id,
+            $this->username,
+            $this->password,
         ));
     }
 
@@ -289,9 +289,9 @@ class Users implements UserInterface, \Serializable
     public function unserialize($serialized)
     {
         list (
-            $this->Id,
-            $this->Username,
-            $this->Password,
+            $this->id,
+            $this->username,
+            $this->password,
             ) = unserialize($serialized);
     }
 

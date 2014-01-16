@@ -8,18 +8,18 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class UsersAdmin extends Admin
+class UserAdmin extends Admin
 {
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('Name', 'text', array('label' => 'Name'))
-            ->add('LastName', 'text', array('label' => 'Last name'))
-            ->add('Email') //if no type is specified, SonataAdminBundle tries to guess it
-            ->add('Username')
-            ->add('Password')
-            ->add('Roles','sonata_type_model',array(
+            ->add('name', 'text', array('label' => 'Name'))
+            ->add('lastName', 'text', array('label' => 'Last name'))
+            ->add('email') //if no type is specified, SonataAdminBundle tries to guess it
+            ->add('username')
+            ->add('password')
+            ->add('roles','sonata_type_model',array(
                 'expanded' => true,
                 'compound' => true,
                 'multiple' => true,
@@ -31,9 +31,9 @@ class UsersAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('Name')
-            ->add('LastName')
-            ->add('Roles')
+            ->add('name')
+            ->add('lastName')
+            ->add('roles')
         ;
     }
 
@@ -41,10 +41,10 @@ class UsersAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('Name')
-            ->add('LastName')
-            ->add('Email')
-            ->add('Roles','sonata_type_model')
+            ->addIdentifier('name')
+            ->add('lastName')
+            ->add('email')
+            ->add('roles','sonata_type_model')
         ;
     }
 

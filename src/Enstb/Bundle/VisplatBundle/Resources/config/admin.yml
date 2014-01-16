@@ -1,22 +1,22 @@
 services:
     sonata.admin.roles:
-        class: Enstb\Bundle\VisplatBundle\Administrator\RolesAdmin
+        class: Enstb\Bundle\VisplatBundle\Administrator\RoleAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Management", label: "Roles" }
         arguments:
             - ~
-            - Enstb\Bundle\VisplatBundle\Entity\Roles
+            - Enstb\Bundle\VisplatBundle\Entity\Role
             - ~
         calls:
             - [ setTranslationDomain, [EnstbVisplatBundle]]
 
     sonata.admin.users:
-            class: Enstb\Bundle\VisplatBundle\Administrator\UsersAdmin
+            class: Enstb\Bundle\VisplatBundle\Administrator\UserAdmin
             tags:
                 - { name: sonata.admin, manager_type: orm, group: "Management", label: "Users" }
             arguments:
                 - ~
-                - Enstb\Bundle\VisplatBundle\Entity\Users
+                - Enstb\Bundle\VisplatBundle\Entity\User
                 - ~
             calls:
                 - [ setTranslationDomain, [EnstbVisplatBundle]]

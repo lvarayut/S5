@@ -1,6 +1,6 @@
 security:
     encoders:
-        Enstb\Bundle\VisplatBundle\Entity\Users: plaintext
+        Enstb\Bundle\VisplatBundle\Entity\User: plaintext
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -11,7 +11,7 @@ security:
 
     providers:
         main:
-          entity: { class: Enstb\Bundle\VisplatBundle\Entity\Users, property: Username }
+          entity: { class: Enstb\Bundle\VisplatBundle\Entity\User, property: username }
 #        in_memory:
 #            memory:
 #                users:
@@ -42,5 +42,5 @@ security:
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_ADMIN }

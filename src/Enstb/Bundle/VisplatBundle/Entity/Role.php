@@ -8,39 +8,39 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 /**
  * Roles
  */
-class Roles implements RoleInterface
+class Role implements RoleInterface
 {
     /**
      * @var integer
      */
-    private $Id;
+    private $id;
 
     /**
      * @var string
      */
-    private $Name;
+    private $name;
 
     /**
      * @var string
      */
-    private $Description;
+    private $description;
 
     /**
      * @var \DateTime
      */
-    private $DateCreated;
+    private $dateCreated;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $Users;
+    private $users;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->Users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -50,18 +50,18 @@ class Roles implements RoleInterface
      */
     public function getId()
     {
-        return $this->Id;
+        return $this->id;
     }
 
     /**
      * Set Name
      *
      * @param string $name
-     * @return Roles
+     * @return Role
      */
     public function setName($name)
     {
-        $this->Name = $name;
+        $this->name = $name;
 
         return $this;
     }
@@ -73,18 +73,18 @@ class Roles implements RoleInterface
      */
     public function getName()
     {
-        return $this->Name;
+        return $this->name;
     }
 
     /**
      * Set Description
      *
      * @param string $description
-     * @return Roles
+     * @return Role
      */
     public function setDescription($description)
     {
-        $this->Description = $description;
+        $this->description = $description;
 
         return $this;
     }
@@ -96,18 +96,18 @@ class Roles implements RoleInterface
      */
     public function getDescription()
     {
-        return $this->Description;
+        return $this->description;
     }
 
     /**
      * Set DateCreated
      *
      * @param \DateTime $dateCreated
-     * @return Roles
+     * @return Role
      */
     public function setDateCreated($dateCreated)
     {
-        $this->DateCreated = $dateCreated;
+        $this->dateCreated = $dateCreated;
 
         return $this;
     }
@@ -119,40 +119,40 @@ class Roles implements RoleInterface
      */
     public function getDateCreated()
     {
-        return $this->DateCreated;
+        return $this->dateCreated;
     }
 
     /**
-     * Add Users
+     * Add User
      *
-     * @param \Enstb\Bundle\VisplatBundle\Entity\Users $user
-     * @return Roles
+     * @param \Enstb\Bundle\VisplatBundle\Entity\User $user
+     * @return Role
      */
-    public function addUser(\Enstb\Bundle\VisplatBundle\Entity\Users $user)
+    public function addUser(\Enstb\Bundle\VisplatBundle\Entity\User $user)
     {
-        $this->Users->add($user);
+        $this->users->add($user);
 
         return $this;
     }
 
     /**
-     * Remove Users
+     * Remove User
      *
-     * @param \Enstb\Bundle\VisplatBundle\Entity\Users $user
+     * @param \Enstb\Bundle\VisplatBundle\Entity\User $user
      */
-    public function removeUser(\Enstb\Bundle\VisplatBundle\Entity\Users $user)
+    public function removeUser(\Enstb\Bundle\VisplatBundle\Entity\User $user)
     {
-        $this->Users->removeElement($user);
+        $this->users->removeElement($user);
     }
 
     /**
-     * Get Users
+     * Get User
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getUsers()
     {
-        return $this->Users;
+        return $this->users;
     }
     /**
      * @ORM\PrePersist

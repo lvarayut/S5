@@ -1,32 +1,32 @@
-Enstb\Bundle\VisplatBundle\Entity\Roles:
+Enstb\Bundle\VisplatBundle\Entity\Role:
     type: entity
-    table: Roles
+    table: Role
     id:
-        Id:
+        id:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        Name:
+        name:
             type: string
             length: 60
             unique: true
-        Description:
+        description:
             type: string
             length: 250
             unique: true
-        DateCreated:
+        dateCreated:
             type: datetime
     manyToMany:
-        Users:
-            targetEntity: Users
-            inversedBy: Roles
+        users:
+            targetEntity: User
+            inversedBy: roles
             joinTable:
-                name: Users_Roles
+                name: User_Role
                 joinColumns:
-                    RoleId:
-                        referencedColumnName: Id
+                    roleId:
+                        referencedColumnName: id
                 inverseJoinColumns:
-                    UserId:
-                        referencedColumnName: Id
+                    userId:
+                        referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setDateCreatedValue ]

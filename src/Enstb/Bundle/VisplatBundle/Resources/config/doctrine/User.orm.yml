@@ -1,35 +1,35 @@
-Enstb\Bundle\VisplatBundle\Entity\Users:
+Enstb\Bundle\VisplatBundle\Entity\User:
     type: entity
-    table: Users
+    table: User
     id:
-        Id:
+        id:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        Name:
+        name:
             type: string
             length: 30
-        LastName:
+        lastName:
             type: string
             length: 30
-        Email:
+        email:
             type: string
             length: 60
             unique: true
-        Username:
+        username:
             type: string
             length: 10
             unique: true
-        Password:
+        password:
             type: string
             length: 100
             unique: false
-        DateCreated:
+        dateCreated:
             type: datetime
     manyToMany:
-        Roles:
-            targetEntity: Roles
-            mappedBy: Users
+        roles:
+            targetEntity: Role
+            mappedBy: users
 
     lifecycleCallbacks:
         prePersist: [ setDateCreatedValue ]
