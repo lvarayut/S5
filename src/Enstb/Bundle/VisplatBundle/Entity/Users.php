@@ -3,11 +3,12 @@
 namespace Enstb\Bundle\VisplatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
  */
-class Users
+class Users implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -239,8 +240,24 @@ class Users
      */
     public function getRoles()
     {
-        return $this->Roles;
+        return $this->Roles->toArray();
     }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function equals(Users $user)
+    {
+        return $user->getUsername() == $this->getUsername();
+    }
+
     /**
      * @ORM\PrePersist
      */
@@ -254,5 +271,28 @@ class Users
         return $this->getName();
     }
 
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->Id,
+            $this->Username,
+            $this->Password,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->Id,
+            $this->Username,
+            $this->Password,
+            ) = unserialize($serialized);
+    }
 
 }

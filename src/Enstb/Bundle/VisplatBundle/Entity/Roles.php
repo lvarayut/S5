@@ -3,11 +3,12 @@
 namespace Enstb\Bundle\VisplatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Roles
  */
-class Roles
+class Roles implements RoleInterface
 {
     /**
      * @var integer
@@ -163,6 +164,10 @@ class Roles
 
     function __toString()
     {
+        return $this->getName();
+    }
+
+    public function getRole(){
         return $this->getName();
     }
 }

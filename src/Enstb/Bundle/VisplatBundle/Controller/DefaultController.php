@@ -4,19 +4,21 @@ namespace Enstb\Bundle\VisplatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        // get the username from Session
+        $username = $request->getSession()->get('username');
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
-            'username' => $_GET['username']
+            'username' => $username
         ));
     }
 
-    public function loginAction()
+    public function loginAction(Request $request)
     {
-        $request = $this->getRequest();
         $session = $request->getSession();
 
         // get the login error if there is one

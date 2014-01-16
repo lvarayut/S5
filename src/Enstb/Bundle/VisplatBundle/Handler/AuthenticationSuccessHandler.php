@@ -11,28 +11,21 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessH
 use Symfony\Component\Security\Http\HttpUtils;
 
 
-class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler {
+class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
+{
     private $router;
-    public function __construct( HttpUtils $httpUtils, array $options, $router ) {
+
+    public function __construct(HttpUtils $httpUtils, array $options, $router)
+    {
         $this->router = $router;
-        parent::__construct( $httpUtils, $options );
+        parent::__construct($httpUtils, $options);
     }
 
-    public function onAuthenticationSuccess( Request $request, TokenInterface $token ) {
-        if( $request->isXmlHttpRequest() ) {
-            $response = new JsonResponse( array( 'success' => true, 'username' => $token->getUsername() ) );
-            return $response;
-        } else {
-            if ($targetPath = $request->getSession()->get('_security.target_path')) {
-                $url = $targetPath;
-            } else {
-                // Otherwise, redirect him to wherever you want
-                $url = $this->router->generate('enstb_visplat_homepage', array(
-                    'username' => $token->getUser()->getUsername()
-                ));
-            }
-
-            return new RedirectResponse($url);
-        }
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    {
+        // Keep the username into session
+        $request->getSession()->set('username', $token->getUser()->getUsername());
+        return parent::onAuthenticationSuccess($request,$token);
     }
+
 }
