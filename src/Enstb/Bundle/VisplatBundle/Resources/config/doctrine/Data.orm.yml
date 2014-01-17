@@ -1,0 +1,28 @@
+Enstb\Bundle\VisplatBundle\Entity\Data:
+    type: entity
+    table: Data
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        event:
+            type: string
+            length: 100
+            unique: false
+        begin:
+            type: datetime
+        end:
+            type: datetime
+        place:
+            type: string
+            length: 100
+            unique: false
+    oneToOne:
+        patientId:
+            targetEntity: User
+            inversedBy: data
+            joinColumn:
+                patientID:
+                    referencedColumnName: id
+

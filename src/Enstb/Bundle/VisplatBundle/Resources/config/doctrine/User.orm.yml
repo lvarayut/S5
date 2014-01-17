@@ -30,6 +30,10 @@ Enstb\Bundle\VisplatBundle\Entity\User:
         roles:
             targetEntity: Role
             mappedBy: users
+    oneToOne:
+        data:
+            targetEntity: Data
+            mappedBy: patientId
 
     lifecycleCallbacks:
         prePersist: [ setDateCreatedValue ]

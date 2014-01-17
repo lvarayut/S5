@@ -51,6 +51,11 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
+     * @var \Enstb\Bundle\VisplatBundle\Entity\Data
+     */
+    private $data;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -295,4 +300,27 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
+
+    /**
+     * Set data
+     *
+     * @param \Enstb\Bundle\VisplatBundle\Entity\Data $data
+     * @return User
+     */
+    public function setData(\Enstb\Bundle\VisplatBundle\Entity\Data $data = null)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return \Enstb\Bundle\VisplatBundle\Entity\Data 
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
 }
