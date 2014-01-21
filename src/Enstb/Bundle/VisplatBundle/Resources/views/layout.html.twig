@@ -1,7 +1,17 @@
 {% extends 'EnstbVisplatBundle::base.html.twig' %}
 {% block body %}
     <div class="navbar navbar-inverse vp-navbar" role="navigation">
-        <p class="navbar-text navbar-right vp-navbar-text">Signed in as <a href="#" class="navbar-link">{{ username | capitalize }}</a></p>
+        <ul class="navbar-nav pull-right vp-navbar-text">
+            <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.session.get('username') | capitalize }}<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('sonata_admin_dashboard') }}">Dashboard</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{ path('logout') }}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <p class="navbar-text navbar-right vp-navbar-text" style="margin-right: 4px !important">{{ icon('user') }} Signed in as</p>
     </div>
     <div id="vp-navbar-fix-wrapper">
         <div class="navbar navbar-default" id="vp-navbar-fix">

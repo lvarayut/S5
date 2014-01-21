@@ -34,8 +34,8 @@ security:
                 check_path: /login_check
                 default_target_path: enstb_visplat_homepage
             logout:
-                path:   _demo_logout
-                target: _demo
+                path:   /logout
+                target: /login
             anonymous: true
             #http_basic:
             #    realm: "Secured Demo Area"

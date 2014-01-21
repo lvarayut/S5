@@ -10,11 +10,7 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        // get the username from Session
-        $username = $request->getSession()->get('username');
-        return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
-            'username' => $username
-        ));
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig');
     }
 
     public function loginAction(Request $request)
