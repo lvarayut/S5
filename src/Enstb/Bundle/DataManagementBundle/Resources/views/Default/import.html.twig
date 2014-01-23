@@ -1,0 +1,11 @@
+{% extends 'EnstbVisplatBundle::layout.html.twig' %}
+{%  block graph %}
+    <div>
+    <form class="" role="form" action="" method="post" {{ form_enctype(form) }}>
+        <div class="form-group">
+            {{ form_widget(form ) }}
+        </div>
+    </form>
+
+{% endblock %}
+

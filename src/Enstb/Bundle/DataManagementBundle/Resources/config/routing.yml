@@ -1,3 +1,7 @@
-enstb_data_management_homepage:
-    pattern:  /generate
-    defaults: { _controller: EnstbDataManagementBundle:Default:index }
+enstb_data_management_transform:
+    pattern:  /transform
+    defaults: { _controller: EnstbDataManagementBundle:Default:transform }
+
+enstb_data_management_import:
+    pattern:  /import
+    defaults: { _controller: EnstbDataManagementBundle:Default:import }
