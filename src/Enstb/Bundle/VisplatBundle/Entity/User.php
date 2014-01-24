@@ -66,7 +66,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get Id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,7 +89,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get Name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -112,7 +112,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get LastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -135,7 +135,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get Email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -158,7 +158,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get Username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -181,7 +181,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get Password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -204,7 +204,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get DateCreated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -212,7 +212,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Add Roles
+     * Add Role
      *
      * @param \Enstb\Bundle\VisplatBundle\Entity\Role $role
      * @return User
@@ -241,11 +241,20 @@ class User implements UserInterface, \Serializable
     /**
      * Get Role
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRoles()
     {
-        return $this->roles->toArray();
+        return $this->roles;
+    }
+
+    public function setRoles($roles){
+        if(count($roles) > 0){
+        foreach($roles as $role){
+            $this->addRole($role);
+        }
+    }
+        return $this;
     }
 
     public function getSalt()
@@ -270,6 +279,7 @@ class User implements UserInterface, \Serializable
     {
         $this->setDateCreated(new \DateTime());
     }
+
 
     function __toString()
     {
@@ -317,7 +327,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get data
      *
-     * @return \Enstb\Bundle\VisplatBundle\Entity\Data 
+     * @return \Enstb\Bundle\VisplatBundle\Entity\Data
      */
     public function getData()
     {
