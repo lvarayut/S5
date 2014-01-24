@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\RuntimeException;
 
+
 class DefaultController extends Controller
 {
     // Transform data by connecting event into one word (Deliminator is "-")
@@ -47,11 +48,13 @@ class DefaultController extends Controller
                 // Get file
                 $file = $form->get('importFile');
                 // Get patient name
-                $patientName = $form->get('patient')->getData();
-                //Create a table by using the patient_name
-                $this->createDatasetTable($patientName);
+                $patientId = $form->get('patient')->getData();
+                // Delete the exist Database
+                $this->dropDatasetTable($patientId);
+                //Create a table by using the patientId
+                $this->createDatasetTable($patientId);
                 // Get data inside the file
-              //  $this->importDataset($file->getData());
+                $this->importDataset($file->getData(),$patientId);
             }
 
         }
@@ -64,48 +67,54 @@ class DefaultController extends Controller
     // Transform data by connecting event into one word (Deliminator is "-")
     public function transform($file)
     {
+        $dataTransformedArr = array();
         $handle = fopen($file, "r") or die("Couldn't open $file");
         // Read data line by line
         while (($line = fgets($handle)) !== false) {
-            $dataTransformed = "";
-            // Split each line by space
-            $dataArray = explode(" ", $line);
-            // Concatenate first and second words
-            $dataTransformed .= $dataArray[0]." ";
-            $dataTransformed .= $dataArray[1]." ";
-            // Add hyphen between words for combining an activity into one word
-            for($i=2;$i<count($dataArray)-1;$i++){
-                // Don't append hyphen for the last word of activity
-                if($i==count($dataArray)-2){
-                    $dataTransformed .= $dataArray[$i]." ";
-                }
-                else{
-                    $dataTransformed .= $dataArray[$i]."-";
-                }
-            }
-            // Concatenate the last word
-            $dataTransformed .= $dataArray[count($dataArray)-1];
+            $dataTransformedArr[] = explode(" ",$line);
+//            $dataTransformed = array();
+//            // Split each line by space
+//            $dataArray = explode(" ", $line);
+//            // Put first and second words
+//            $dataTransformed[] = $dataArray[0];
+//            $dataTransformed[] = $dataArray[1];
+//            // Add hyphen between words for combining an activity into one word
+//            for($i=2;$i<count($dataArray)-1;$i++){
+//                // Don't append hyphen for the last word of activity
+//                if($i==count($dataArray)-2){
+//                    $dataTransformed[]= $dataArray[$i];
+//                }
+//                else{
+//                    $dataTransformed[] = $dataArray[$i];
+//                }
+//            }
+//            // Put the last word
+//            $dataTransformed[] = $dataArray[count($dataArray)-1];
+//            // Put each link in array
+//            $dataTransformedArr[] = $dataTransformed;
             // Write the data
            // file_put_contents($fileWrite, $dataTransformed, FILE_APPEND | LOCK_EX);
         }
         fclose($handle);
+        return $dataTransformedArr;
     }
 
     // Import file into Database
-    public function importDataset($file){
-        $dataTransformed = $this->transform($file);
-        $handle = fopen($file, "r") or die("Couldn't open $file");
-        // Read data line by line
-        while (($line = fgets($handle)) !== false) {
-            echo $line.'<br>';
+    public function importDataset($file,$patientId){
+        $dataTransformedArr = $this->transform($file);
+        // Traverse each line of the Dataset
+        for($i=0;$i<sizeof($dataTransformedArr);$i+=2){
+            $startEvent = $dataTransformedArr[$i];
+            $endEvent = $dataTransformedArr[$i+1];
+            $this->insertDataset($startEvent,$endEvent,$patientId);
         }
 
     }
 
     // Create a new table of Dataset
-    public function createDatasetTable($patientName){
+    public function createDatasetTable($patientId){
         $sql = "
-            CREATE TABLE DATA_".$patientName."
+            CREATE TABLE DATA_".$patientId."
             (
             id int NOT NULL AUTO_INCREMENT,
             event varchar(100) NOT NULL,
@@ -120,10 +129,23 @@ class DefaultController extends Controller
     }
 
     // Insert dataset into a given table name
-    public function insertDataset($tableName){
+    public function insertDataset($startEvent,$endEvent,$patientId){
+        // In case of three truncated events, "?" operation is used to verify it
+        $event = $startEvent[2].'-'.$startEvent[3].(sizeof($startEvent)==6 ? '-'.$startEvent[4] : "");
         $sql = "
-            INSERT;
+            INSERT INTO Data_".$patientId." (event,begin,end)
+            VALUES (:event,:begin,:end);
         ";
+        $stmt = $this->getDoctrine()->getManager()->getConnection()->prepare($sql);
+        $stmt->bindValue('event',$event);
+        $stmt->bindValue('begin', $startEvent[0].' '.$startEvent[1],\PDO::PARAM_STR);
+        $stmt->bindValue('end', $endEvent[0].' '.$endEvent[1],\PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    //
+    public function dropDatasetTable($patientId){
+        $sql = "DROP TABLE DATA_".$patientId.";";
         $stmt = $this->getDoctrine()->getManager()->getConnection()->prepare($sql);
         $stmt->execute();
     }
