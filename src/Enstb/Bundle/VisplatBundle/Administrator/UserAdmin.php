@@ -19,7 +19,9 @@ class UserAdmin extends Admin
             ->add('email') //if no type is specified, SonataAdminBundle tries to guess it
             ->add('username')
             ->add('password')
-            ->add('roles','sonata_type_model',array(
+            ->add('rolesCollection','entity',array(
+                'class' => 'EnstbVisplatBundle:Role',
+                'property'=>'name',
                 'expanded' => true,
                 'compound' => true,
                 'multiple' => true,
@@ -47,6 +49,7 @@ class UserAdmin extends Admin
             ->add('roles','sonata_type_model')
         ;
     }
+
 
 
 }

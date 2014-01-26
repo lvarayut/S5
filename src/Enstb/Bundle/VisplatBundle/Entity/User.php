@@ -219,11 +219,22 @@ class User implements UserInterface, \Serializable
      */
     public function addRole(\Enstb\Bundle\VisplatBundle\Entity\Role $role)
     {
-        // Link each role with the user
-        $role->addUser($this);
-        $this->roles->add($role);
+        if(!in_array($role,$this->getRoles())){
+            // Link each role with the user
+            $role->addUser($this);
+            $this->roles->add($role);
+        }
 
         return $this;
+    }
+
+    /**
+     * Add RolesCollection
+     *
+     * @param $role \Enstb\Bundle\VisplatBundle\Entity\Role $role
+     */
+    public function addRolesCollection($role){
+        $this->addRole($role);
     }
 
     /**
@@ -239,22 +250,35 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get Role
+     * Remove RolesCollection
+     *
+     * @param $role \Enstb\Bundle\VisplatBundle\Entity\Role $role
+     */
+    public function removeRolesCollection($role){
+        $this->removeRole($role);
+    }
+
+    /**
+     * Get Roles array used for Authentication
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getRoles()
     {
-        return $this->roles;
+        return $this->roles->toArray();
     }
 
-    public function setRoles($roles){
-        if(count($roles) > 0){
-        foreach($roles as $role){
-            $this->addRole($role);
-        }
-    }
-        return $this;
+
+    /**
+     * Get RolesCollection
+     *
+     * Get Roles array used in case of using SonataAdminBundle
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection
+     */
+    public function getRolesCollection()
+    {
+        return $this->roles;
     }
 
     public function getSalt()
@@ -280,6 +304,22 @@ class User implements UserInterface, \Serializable
         $this->setDateCreated(new \DateTime());
     }
 
+    /**
+     * Set RolesCollection
+     *
+     * Set roles submitted from SonataAdminBundle form
+     * @param $roles \Enstb\Bundle\VisplatBundle\Entity\Role $role
+     * @return $user
+     */
+    public function setRolesCollection($roles)
+    {
+        if (count($roles) > 0) {
+            foreach ($roles as $role) {
+                $this->addRole($role);
+            }
+        }
+        return $this;
+    }
 
     function __toString()
     {
