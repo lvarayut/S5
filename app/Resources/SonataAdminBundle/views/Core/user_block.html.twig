@@ -5,6 +5,10 @@
             <ul class="dropdown-menu">
                 <li><a href="{{ path('enstb_visplat_homepage') }}">Home</a></li>
                 <li class="divider"></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('enstb_data_management_import') }}">Import Dataset</a></li>
+                    <li class="divider"></li>
+                {% endif %}
                 <li><a href="{{ path('logout') }}">Logout</a></li>
             </ul>
         </li>

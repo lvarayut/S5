@@ -3,11 +3,10 @@ security:
         Enstb\Bundle\VisplatBundle\Entity\User: plaintext
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        Administrator: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        Doctor: ROLE_ADMIN
+        Administrator: [ROLE_USER, ROLE_ADMIN, ROLE_SUPERADMIN]
+        Doctor: [ROLE_USER, ROLE_ADMIN]
         Patient: ROLE_USER
+        Family: ROLE_USER
 
     providers:
         main:
@@ -41,6 +40,8 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- The order are important, the first matched path is selected
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/administrator, roles: ROLE_ADMIN }
+        - { path: ^/data, roles: ROLE_ADMIN }
+        - { path: ^/, roles: ROLE_USER }
