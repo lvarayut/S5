@@ -1,41 +1,64 @@
 /* Navbar */
 .vp-navbar{
-    margin-bottom: 0;
-    border-radius: 0;
-    min-height: 35px;
+	margin-bottom: 0;
+	border-radius: 0;
+	min-height: 35px;
 }
 .vp-navbar-text{
-    margin-top: 7px;
-    margin-bottom: 0;
-    margin-right: 10px !important;
-    padding: 0;
+	margin-top: 7px;
+	margin-bottom: 0;
+	margin-right: 10px !important;
+padding: 0;
 }
 
 #vp-navbar-fix.affix {
-    position: fixed;
-    top: 0;
-    width: 100%
+position: fixed;
+top: 0;
+width: 100%
 }
 
 /* Login form*/
 
 .vp-login-wrapper {
-    padding-top: 80px;
-    padding-bottom: 80px;
-    background-color: #eee;
+	padding-top: 80px;
+	padding-bottom: 80px;
+	background-color: #eee;
 }
 .vp-form-login{
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
+	max-width: 330px;
+padding: 15px;
+margin: 0 auto;
 }
 
 .vp-form-title{
-    text-align: center;
+	text-align: center;
 }
 
 .vp-form-alert{
-    padding: 7px;
-    margin-bottom: 10px;
-    font-size: 80%;
+padding: 7px;
+	margin-bottom: 10px;
+	font-size: 80%;
+}
+
+/*Pie Chart*/
+
+.slice text {
+	font-size: 14pt;
+	font-family: Arial;
+}  
+table {
+	border-width:1px; 
+	border-style:solid; 
+	border-color:black;
+width:25%;
+}
+td, th {
+padding: 2px 4px;
+	font-size: 10pt;
+	font-family: Arial;
+	border-width:1px;
+	border-style:solid; 
+	border-color:black;
+width:50%;
+	text-align: center;
 }
