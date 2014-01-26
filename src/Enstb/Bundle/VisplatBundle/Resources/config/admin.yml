@@ -1,5 +1,5 @@
 services:
-    sonata.admin.roles:
+    sonata.admin.role:
         class: Enstb\Bundle\VisplatBundle\Administrator\RoleAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Management", label: "Roles" }
@@ -10,7 +10,7 @@ services:
         calls:
             - [ setTranslationDomain, [EnstbVisplatBundle]]
 
-    sonata.admin.users:
+    sonata.admin.user:
             class: Enstb\Bundle\VisplatBundle\Administrator\UserAdmin
             tags:
                 - { name: sonata.admin, manager_type: orm, group: "Management", label: "Users" }
