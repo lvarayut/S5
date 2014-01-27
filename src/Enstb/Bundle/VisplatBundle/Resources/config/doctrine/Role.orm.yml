@@ -1,5 +1,6 @@
 Enstb\Bundle\VisplatBundle\Entity\Role:
     type: entity
+    repositoryClass: Enstb\Bundle\VisplatBundle\Repository\RoleRepository
     table: Role
     id:
         id:

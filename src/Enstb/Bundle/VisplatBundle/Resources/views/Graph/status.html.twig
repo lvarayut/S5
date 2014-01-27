@@ -1,5 +1,8 @@
 {% extends 'EnstbVisplatBundle::layout.html.twig' %}
 {% block graph %}
+    <!-- Pie Chart -->
+    <script src="{{ asset('bundles/enstbvisplat/js/piechart.js') }}"></script>
     <div id="piechart"></div>
-	<div id="piecharttable"></div>
+	<div id="piechartTable"></div>
+    <script>createPieChart({{ jsonData|json_encode|raw }})</script>
 {% endblock %}

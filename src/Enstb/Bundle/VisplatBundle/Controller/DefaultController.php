@@ -5,12 +5,25 @@ namespace Enstb\Bundle\VisplatBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+use Enstb\Bundle\VisplatBundle\Graph\GraphChart;
 
 class DefaultController extends Controller
 {
+    /**
+     * Generate ADLs, Pie chart and table
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function indexAction(Request $request)
     {
-        return $this->render('EnstbVisplatBundle:Graph:status.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $events = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent();
+        if (!$events) {
+            throw $this->createNotFoundException('Unable to find events.');
+        }
+        $jsonData = GraphChart::createPieChart($events);
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig',array('jsonData'=>$jsonData));
     }
 
     public function loginAction(Request $request)
@@ -31,4 +44,5 @@ class DefaultController extends Controller
             'error'         => $error,
         ));
     }
+
 }

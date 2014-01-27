@@ -1,5 +1,6 @@
 Enstb\Bundle\VisplatBundle\Entity\User:
     type: entity
+    repositoryClass: Enstb\Bundle\VisplatBundle\Repository\UserRepository
     table: User
     id:
         id:

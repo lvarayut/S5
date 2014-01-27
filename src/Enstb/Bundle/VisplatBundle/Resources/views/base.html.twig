@@ -18,7 +18,9 @@
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
 
     <link rel="shortcut icon" href="{{ asset('/bundles/enstbvisplat/images/favicon.ico') }}" />
-
+    
+    <!-- D3js should be included before generating any graphs/charts-->
+    <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/enstbvisplat/js/d3.v3.min.js') }}"></script>
 </head>
 
 <body {% block bodyclass %}{% endblock %}>
@@ -30,10 +32,7 @@
 <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
 <!-- Our customized js -->
 <script src="{{ asset('bundles/enstbvisplat/js/visplat.js') }}"></script>
-<!-- D3js -->
-<script src="{{ asset('bundles/enstbvisplat/js/d3.v3.min.js') }}"></script>
-<!-- Pie Chart -->
-<script src="{{ asset('bundles/enstbvisplat/js/piechart.js') }}"></script>
+
 {% endblock %}
 
 </body>
