@@ -1,11 +1,24 @@
 {% extends 'EnstbVisplatBundle::layout.html.twig' %}
-{%  block graph %}
-    <div>
-    <form class="" role="form" action="" method="post" {{ form_enctype(form) }}>
-        <div class="form-group">
-            {{ form_widget(form ) }}
+{% block graph %}
+    <div class="vp-import-wrapper">
+        <div class="vp-form-title">
+            <h2>Import system</h2>
         </div>
-    </form>
+        <form class="" role="form" action="" method="post" {{ form_enctype(form) }}>
+            <div class="form-group">
+                {{ form_start(form) }}
+                {{ form_row(form.patient) }}
+                {{ form_row(form.importFile) }}
+                {{ form_row(form.submit, {'attr': {'class': 'btn-block btn-lg' }} ) }}
+                {{ form_end(form) }}
 
+                {{ form_widget(form ) }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ include('EnstbVisplatBundle:Utils:footerstick.html.twig') }}
 {% endblock %}
 

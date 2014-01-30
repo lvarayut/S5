@@ -34,6 +34,7 @@
 }
 
 .vp-form-title {
+    margin: 20px 0;
     text-align: center;
 }
 
@@ -41,6 +42,19 @@
     padding: 7px;
     margin-bottom: 10px;
     font-size: 80%;
+}
+
+/* Import form */
+.vp-import-wrapper {
+    padding: 20px 0;
+    max-width: 330px;
+    margin: 0 auto;
+}
+
+.vp-import-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 /*Pie Chart*/
