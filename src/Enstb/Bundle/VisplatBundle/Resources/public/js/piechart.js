@@ -23,9 +23,10 @@ function createPieChart(jsonData) {
             .attr("width", w)
             .attr("height", margin.top)
             .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-        svg.append("text")
+
+    svg.append("text")
             .attr("x", (w / 2))
             .attr("y", 0 - (margin.top / 2))
             .attr("text-anchor", "middle")
@@ -39,10 +40,14 @@ function createPieChart(jsonData) {
 
         var vis = d3.select("#piechart")
             .append("svg:svg")
-            .append("svg:svg")
             .data([data])                   //associate our data with the document
             .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
             .attr("height", h)
+            // Make it responsive.
+            .attr("viewBox", "0 0 " + w + " " + h)
+            .attr("preserveAspectRatio", "xMidYMid")
+            .attr("class", "resizeChart")
+
             .append("svg:g")                //make a group to hold our pie chart
             .attr("transform", "translate(" + (r + 400) + "," + (r + 10) + ")")    //choose of position of the pie chart in the page
 
