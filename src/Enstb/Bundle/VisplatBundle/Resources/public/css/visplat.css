@@ -1,88 +1,96 @@
 /* Navbar */
 .vp-navbar {
-    margin-bottom: 0;
-    border-radius: 0;
-    min-height: 35px;
+	margin-bottom: 0;
+	border-radius: 0;
+	min-height: 35px;
 }
 
 .vp-navbar-text {
-    margin-top: 7px;
-    margin-bottom: 0;
-    margin-right: 10px !important;
-    padding: 0;
+	margin-top: 7px;
+	margin-bottom: 0;
+	margin-right: 10px !important;
+padding: 0;
 }
 
 #vp-navbar-fix.affix {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(248, 248, 248, 0.95);
+position: fixed;
+top: 0;
+width: 100%;
+background: rgba(248, 248, 248, 0.95);
 }
 
 /* Login form*/
 
 .vp-login-wrapper {
-    padding-top: 80px;
-    padding-bottom: 80px;
-    background-color: #eee;
+	padding-top: 80px;
+	padding-bottom: 80px;
+	background-color: #eee;
 }
 
 .vp-form-login {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
+	max-width: 330px;
+padding: 15px;
+margin: 0 auto;
 }
 
 .vp-form-title {
-    margin: 20px 0;
-    text-align: center;
+margin: 20px 0;
+	text-align: center;
 }
 
 .vp-form-alert {
-    padding: 7px;
-    margin-bottom: 10px;
-    font-size: 80%;
+padding: 7px;
+	margin-bottom: 10px;
+	font-size: 80%;
 }
 
 /* Import form */
 .vp-import-wrapper {
-    padding: 20px 0;
-    max-width: 330px;
-    margin: 0 auto;
+padding: 20px 0;
+	max-width: 330px;
+margin: 0 auto;
 }
 
 .vp-import-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+position: fixed;
+bottom: 0;
+width: 100%;
 }
 
 /*Pie Chart*/
 #piechart {
-    height: 100%;
-    margin: 10px;
+height: 100%;
+margin: 10px;
 }
 
 .slice text {
-    font-size: 14pt;
-    font-family: Arial;
-}
+	font-size: 14pt;
+	font-family: Arial;
+}  
 
 table {
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    width: 25%;
+	margin-top:-150px;
+	border-width:2px; 
+	border-style:solid; 
+	border-color:black;
+	border-collapse:collapse;
 }
 
-td, th {
-    padding: 2px 4px;
-    font-size: 10pt;
-    font-family: Arial;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    width: 50%;
-    text-align: center;
+th {
+	font-size: 12pt;
+	font-family: Arial;
+	border-width:1px; 
+	border-style:solid; 
+	border-color:black;
+}
+
+td {
+	font-size: 10pt;
+	font-family: Arial;
+	text-align: center;
+	border-width:1px; 
+	border-style:solid; 
+	border-color:black;
+	width:130px;
 }
 
