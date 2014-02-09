@@ -28,7 +28,7 @@ background: rgba(248, 248, 248, 0.95);
 }
 
 .vp-form-login {
-	max-width: 330px;
+max-width: 330px;
 padding: 15px;
 margin: 0 auto;
 }
@@ -59,17 +59,24 @@ width: 100%;
 
 /*Pie Chart*/
 #piechart {
+width: 70%;
 height: 100%;
 margin: 10px;
 }
 
 .slice text {
-	font-size: 14pt;
+	font-size: 12pt;
 	font-family: Arial;
 }  
 
+#piechartTable {
+width: 70%;
+height: 100%;
+margin: 10px;
+}
+
 table {
-	margin-top:-150px;
+	margin-left: 30px;
 	border-width:2px; 
 	border-style:solid; 
 	border-color:black;
@@ -79,6 +86,7 @@ table {
 th {
 	font-size: 12pt;
 	font-family: Arial;
+	text-align:center;
 	border-width:1px; 
 	border-style:solid; 
 	border-color:black;
@@ -91,6 +99,10 @@ td {
 	border-width:1px; 
 	border-style:solid; 
 	border-color:black;
-	width:130px;
+	width:33%;
 }
+
+
+
+
 
