@@ -5,10 +5,21 @@ $(function() {
     });
 });
 
-var aspect = 960 / 500,
+
+//resizeChart
+var aspect = window.innerWidth / (window.innerHeight * 2/3),
     chart = $(".resizeChart");
 $(window).on("resize", function () {
     var targetWidth = chart.parent().width();
     chart.attr("width", targetWidth);
-    chart.attr("height", targetWidth / aspect);
-});
+    chart.attr("height", Math.round(targetWidth / aspect));
+}); 
+
+//resizeTable
+var aspect = window.innerWidth / window.innerHeight,
+    table = $(".resizeTable");
+$(window).on("resize", function () {
+    var targetWidth = table.parent().width();
+    table.attr("width", targetWidth);
+    table.attr("height", targetWidth / aspect);
+}); 

@@ -12,37 +12,16 @@ function createPieChart(jsonData) {
 		d.Event = d.Event.replace(reg, " ");
 		d.Duration = (d.Duration*100).toFixed(2);
 	});
-
+	
 	var margin = {top: 40, right: 20, bottom: 0, left: 50};
-
-	var w = 1200,                           //width
-	h = 900,                            //height
-	r = 250,                            //radius
+	var w = window.innerWidth,          //width
+	h = window.innerHeight * 2/3,      		//height
+	r = 150,                            //radius
 	color = d3.scale.category20c();     //range of colors
 
 	// -------------------------------------------------------------------------------------------------------------------------------
-	// CREATION OF TITLE
-
-	var svg = d3.select("#piechart")
-	.append("svg")
-	.attr("width", w)
-	.attr("height", margin.top)
-	.append("g")
-	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-
-
-	svg.append("text")
-	.attr("x", 690)
-	.attr("y", 0 - (margin.top / 2))
-	.attr("text-anchor", "middle")
-	.style("font-size", "28px")
-	.style("font-family", "Arial")
-	.style("text-decoration", "underline")
-	.text("Time-consuming activities");
-
-	// -------------------------------------------------------------------------------------------------------------------------------
 	// CREATION OF PIE CHART
-
+	
 	var vis = d3.select("#piechart")
 	.append("svg:svg")
 	.data([data])                   //associate our data with the document
@@ -54,7 +33,7 @@ function createPieChart(jsonData) {
 	.attr("class", "resizeChart")
 
 	.append("svg:g")                //make a group to hold our pie chart
-	.attr("transform", "translate(" + (r + 500) + "," + (r + 10) + ")")    //choose of position of the pie chart in the page
+	.attr("transform", "translate(" + (r + w/6) + "," + (r + 30) + ")")    //choose of position of the pie chart in the page
 
 	var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
 	.outerRadius(r);
@@ -101,19 +80,29 @@ function createPieChart(jsonData) {
 	// CREATION OF TABLE FOR DETAILS
 
 	function tabulate(data, columns) {
-		var table = d3.select("#piechartTable").append("table"),
+	
+		var table = d3.select("#piechartTable")
+		.append("table")
+		.attr("width", w/2)
+		.attr("height", h/2)
+		// Make it responsive.
+		.attr("viewBox", "0 0 " + w + " " + h)
+		.attr("preserveAspectRatio", "xMidYMid")
+		.attr("class", "resizeTable")
 		thead = table.append("thead"),
-		tbody = table.append("tbody");
-
+		tbody = table.append("tbody");  
+		
+		
+		
 		// append the header row
-		thead.append("tr")
+	 	thead.append("tr")
 		.selectAll("th")
 		.data(columns)
 		.enter()
 		.append("th")
 		.text(function (column) {
 			return column;
-		});
+		}); 
 
 		// create a row for each object in the data
 		var rows = tbody.selectAll("tr")
