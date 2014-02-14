@@ -3,6 +3,7 @@
 namespace Enstb\Bundle\VisplatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Enstb\Bundle\VisplatBundle\EnstbVisplatBundle;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -56,11 +57,23 @@ class User implements UserInterface, \Serializable
     private $data;
 
     /**
+     * @var \Enstb\Bundle\VisplatBundle\Entity\User
+     */
+    private $doctorId;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $patients;
+
+    /**
      * Constructor
      */
+
     public function __construct()
     {
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->patients = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -335,6 +348,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+//            $this->roles
         ));
     }
 
@@ -347,6 +361,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+//            $this->roles
             ) = unserialize($serialized);
     }
 
@@ -373,4 +388,48 @@ class User implements UserInterface, \Serializable
     {
         return $this->data;
     }
+
+
+    /**
+     * Set doctorId
+     *
+     * @param integer $doctorId
+     * @return User
+     */
+    public function setDoctorId($doctor)
+    {
+        $this->doctorId = $doctor;
+        return $this;
+    }
+
+    /**
+     * Get doctorId
+     *
+     * @return integer
+     */
+    public function getDoctorId()
+    {
+        return $this->doctorId;
+    }
+
+    /**
+     * @param int $patient
+     *
+     * @return integer
+     */
+    public function setPatients($patientId)
+    {
+        $this->patients->add($patientId);
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPatients()
+    {
+        return $this->patients;
+    }
+
+
 }

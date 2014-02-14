@@ -22,4 +22,27 @@ class UserRepository extends EntityRepository
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    /**
+     * Fetch all patients of the current doctor
+     *
+     * @return mixed, Array of events
+     */
+    public function findPatientsOfDoctor($doctorId)
+    {
+
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT u
+            FROM EnstbVisplatBundle:USER u
+            WHERE u.doctorId = :doctorId
+            ORDER BY u.name '
+        )->setParameter('doctorId', $doctorId);
+        $patientArr = $query->getResult();
+        if (!$patientArr) {
+            return null;
+        }
+        return $patientArr;
+        return $query->getResult();
+    }
 }

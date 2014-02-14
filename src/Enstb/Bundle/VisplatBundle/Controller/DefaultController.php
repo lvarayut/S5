@@ -17,13 +17,19 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        // ADLs
         $em = $this->getDoctrine()->getManager();
         $events = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent();
         if (!$events) {
             throw $this->createNotFoundException('Unable to find events.');
         }
         $jsonData = GraphChart::createPieChart($events);
-        return $this->render('EnstbVisplatBundle:Graph:status.html.twig',array('jsonData'=>$jsonData));
+        // Create patients form
+        $form = $this->patientForm();
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
+            'jsonData' => $jsonData,
+            'form' => $form
+        ));
     }
 
     public function loginAction(Request $request)
@@ -41,8 +47,24 @@ class DefaultController extends Controller
         return $this->render('EnstbVisplatBundle:Login:login.html.twig', array(
             // last username entered by the user
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
+            'error' => $error,
         ));
+    }
+
+    public function patientForm()
+    {
+        // Get current user
+        $doctor = $this->get('security.context')->getToken()->getUser();
+        // Create a doctrine manager
+        $em = $this->getDoctrine()->getManager();
+        $patients = $em->getRepository('EnstbVisplatBundle:User')->findPatientsOfDoctor($doctor->getId());
+        $form = $this->createFormBuilder()
+            ->add('patient', 'choice', array(
+                'choices' => $patients,
+                'required' => true
+            ))
+            ->getForm();
+        return $form;
     }
 
 }
