@@ -1,6 +1,6 @@
 function createPieChart(jsonData) {
 
-	//d3.json(, function (error, data) {
+	
 	// Binding json data from json object instead of reading from file
 	data = JSON.parse(jsonData);
 	
@@ -15,8 +15,8 @@ function createPieChart(jsonData) {
 	
 	var margin = {top: 40, right: 20, bottom: 0, left: 50};
 	var w = window.innerWidth,          //width
-	h = window.innerHeight * 2/3,      		//height
-	r = 150,                            //radius
+	h = window.innerHeight*2/3,      		//height
+	r = 180,                            //radius
 	color = d3.scale.category20c();     //range of colors
 
 	// -------------------------------------------------------------------------------------------------------------------------------
@@ -25,15 +25,15 @@ function createPieChart(jsonData) {
 	var vis = d3.select("#piechart")
 	.append("svg:svg")
 	.data([data])                   //associate our data with the document
-	.attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+	.attr("width", document.getElementById("piechart").width)           //set the width and height of our visualization (these will be attributes of the <svg> tag
 	.attr("height", h)
 	// Make it responsive.
-	.attr("viewBox", "0 0 " + w + " " + h)
+	.attr("viewBox", "0 0 " + w*0.6 + " " + h)
 	.attr("preserveAspectRatio", "xMidYMid")
-	.attr("class", "resizeChart")
+	.attr("class", "resizePieChart")
 
 	.append("svg:g")                //make a group to hold our pie chart
-	.attr("transform", "translate(" + (r + w/6) + "," + (r + 30) + ")")    //choose of position of the pie chart in the page
+	.attr("transform", "translate(" + (w*0.3) + "," + (h/2) + ")")    //choose of position of the pie chart in the page
 
 	var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
 	.outerRadius(r);
@@ -81,12 +81,14 @@ function createPieChart(jsonData) {
 
 	function tabulate(data, columns) {
 	
+	
 		var table = d3.select("#piechartTable")
 		.append("table")
 		.attr("width", w/2)
 		.attr("height", h/2)
+		
 		// Make it responsive.
-		.attr("viewBox", "0 0 " + w + " " + h)
+		.attr("viewBox", "0 0 " + w*0.6 + " " + h)
 		.attr("preserveAspectRatio", "xMidYMid")
 		.attr("class", "resizeTable")
 		thead = table.append("thead"),

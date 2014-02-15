@@ -22,4 +22,21 @@ class UserRepository extends EntityRepository
         $stmt->execute();
         return $stmt->fetchAll();
     }
+	/**
+     * Fetch all events
+     *
+     * @return mixed, Array of events
+     */
+    public function findAllEvents(){
+        $sql = "
+            SELECT `Event` AS `taskName`, 
+			`Begin` AS `startDate`, 
+			`End` AS `endDate` 
+			FROM `Data_3`;
+        ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
 }

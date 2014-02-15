@@ -18,12 +18,19 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $events = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent();
-        if (!$events) {
+        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent();
+		$ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents();
+        if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
-        $jsonData = GraphChart::createPieChart($events);
-        return $this->render('EnstbVisplatBundle:Graph:status.html.twig',array('jsonData'=>$jsonData));
+		if (!$ganttEvents) {
+            throw $this->createNotFoundException('Unable to find events.');
+        }
+        $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
+		$jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig',array(
+			'jsonDataPieChart'=>$jsonDataPieChart,
+			'jsonDataGanttChart'=>$jsonDataGanttChart));
     }
 
     public function loginAction(Request $request)

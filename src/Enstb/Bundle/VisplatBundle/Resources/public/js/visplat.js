@@ -6,9 +6,9 @@ $(function() {
 });
 
 
-//resizeChart
-var aspect = window.innerWidth / (window.innerHeight * 2/3),
-    chart = $(".resizeChart");
+//resizePieChart
+var aspect = document.getElementById("piechart").height/document.getElementById("piechart").width,
+    chart = $(".resizePieChart");
 $(window).on("resize", function () {
     var targetWidth = chart.parent().width();
     chart.attr("width", targetWidth);
@@ -16,10 +16,19 @@ $(window).on("resize", function () {
 }); 
 
 //resizeTable
-var aspect = window.innerWidth / window.innerHeight,
+var aspect = document.getElementById("piechartTable").height/document.getElementById("piechartTable").width,
     table = $(".resizeTable");
 $(window).on("resize", function () {
     var targetWidth = table.parent().width();
     table.attr("width", targetWidth);
     table.attr("height", targetWidth / aspect);
+}); 
+
+//resizeGanttChart
+var aspect = (window.innerHeight*2/3)/document.getElementById("ganttchart").width,
+    gantt = $(".resizeGanttChart");
+$(window).on("resize", function () {
+    var targetWidth = gantt.parent().width();
+    gantt.attr("width", targetWidth);
+    gantt.attr("height", Math.round(targetWidth / aspect));
 }); 

@@ -16,7 +16,7 @@ class GraphChart
     public static function createPieChart($data)
     {
 
-// total as 24 hours (in seconds)
+// total as 24 hours (in seconds) // has to be changed if change of scale (week, month)
 
         $total = 24 * 3600;
 
@@ -44,4 +44,24 @@ class GraphChart
 
         return json_encode($data);
     }
+	
+	
+	
+	/**
+     * Create a Gantt chart data
+     * @param $data all events from DB
+     * @return  JSON data
+     */
+    public static function createGanttChart($data)
+    {
+	
+	$status = null;
+
+	for($i=0;$i<sizeof($data);$i++){
+		$data[$i]['status'] = $status ;	
+	}
+	
+	return json_encode($data);
+	
+	}
 }
