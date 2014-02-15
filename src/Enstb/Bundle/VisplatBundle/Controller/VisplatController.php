@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Enstb\Bundle\VisplatBundle\Graph\GraphChart;
 
-class DefaultController extends Controller
+class VisplatController extends Controller
 {
     /**
      * Generate ADLs, Pie chart and table
@@ -36,6 +36,12 @@ class DefaultController extends Controller
 	));
     }
 
+    /**
+     * Verify Authentication
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
@@ -55,20 +61,37 @@ class DefaultController extends Controller
         ));
     }
 
-    public function patientForm()
+
+    /**
+     * Create a patient form to be embedded into a layout.html.twig
+     *
+     * @return \Symfony\Component\Form\Form
+     */
+    public function patientFormAction()
     {
+        $patientArray = array();
         // Get current user
         $doctor = $this->get('security.context')->getToken()->getUser();
         // Create a doctrine manager
         $em = $this->getDoctrine()->getManager();
         $patients = $em->getRepository('EnstbVisplatBundle:User')->findPatientsOfDoctor($doctor->getId());
+        if ($patients) {
+            // Make an associative array
+            foreach ($patients as $patient) {
+                $patientArray[$patient['id']] = $patient['name'];
+            }
+        }
         $form = $this->createFormBuilder()
             ->add('patient', 'choice', array(
-                'choices' => $patients,
-                'required' => true
+                'choices' => $patientArray,
+                'required' => true,
+                'label' => false
             ))
             ->getForm();
-        return $form;
+
+        return $this->render('EnstbVisplatBundle:Visplat:patientForm.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
 }

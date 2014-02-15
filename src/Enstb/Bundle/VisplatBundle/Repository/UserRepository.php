@@ -52,17 +52,17 @@ class UserRepository extends EntityRepository
 
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            'SELECT u
+            'SELECT u.id, u.name
             FROM EnstbVisplatBundle:USER u
             WHERE u.doctorId = :doctorId
             ORDER BY u.name '
         )->setParameter('doctorId', $doctorId);
-        $patientArr = $query->getResult();
-        if (!$patientArr) {
+        $patients = $query->getResult();
+        if (!$patients) {
             return null;
         }
-        return $patientArr;
-        return $query->getResult();
+
+        return $patients;
     }
 
 }

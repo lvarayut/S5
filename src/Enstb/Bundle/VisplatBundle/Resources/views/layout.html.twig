@@ -28,48 +28,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Visualization Platform</a>
+                    <a class="navbar-brand" href="{{ path('enstb_visplat_homepage') }}">Visualization Platform</a>
                 </div>
                 <div class="navbar-collapse collapse">
+                    {# Render patients selector#}
+                    {% render(controller('EnstbVisplatBundle:Visplat:patientForm')) %}
                     <ul class="nav navbar-nav pull-right">
-                        <li class="active"><a href="{{ path('enstb_visplat_homepage') }}">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">ADLs<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Status</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Time consuming</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Activity schedule</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">History<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Status</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Time consuming</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Activity schedule</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sensors<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Status</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Time consuming</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Activity schedule</a></li>
-                            </ul>
-                        </li>
-                        <form class="navbar-form navbar-right">
-                            <div class="form-group">
-                                <select class="form-control" style="min-width: 150px;">
-                                    <option>John Doe</option>
-                                </select>
-                            </div>
-                        </form>
+                        <li class="active"><a href="#">ADLs</a></li>
+                        <li><a href="#">History</a></li>
+                        <li><a href="#">Sensors</a></li>
+                    </ul>
                 </div>
                 <!--/.navbar-collapse -->
             </div>
