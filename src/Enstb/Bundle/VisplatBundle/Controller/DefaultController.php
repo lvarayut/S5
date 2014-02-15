@@ -24,24 +24,16 @@ class DefaultController extends Controller
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
-<<<<<<< HEAD
-		if (!$ganttEvents) {
+
+	if (!$ganttEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
 		$jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig',array(
 			'jsonDataPieChart'=>$jsonDataPieChart,
-			'jsonDataGanttChart'=>$jsonDataGanttChart));
-=======
-        $jsonData = GraphChart::createPieChart($events);
-        // Create patients form
-        $form = $this->patientForm();
-        return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
-            'jsonData' => $jsonData,
-            'form' => $form
-        ));
->>>>>>> 30a5de5f6c90181ec8d06379ec1694b6fdcdb393
+			'jsonDataGanttChart'=>$jsonDataGanttChart
+	));
     }
 
     public function loginAction(Request $request)
