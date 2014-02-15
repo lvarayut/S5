@@ -17,12 +17,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        // ADLs
         $em = $this->getDoctrine()->getManager();
         $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent();
 		$ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents();
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
+<<<<<<< HEAD
 		if (!$ganttEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
@@ -31,6 +33,15 @@ class DefaultController extends Controller
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig',array(
 			'jsonDataPieChart'=>$jsonDataPieChart,
 			'jsonDataGanttChart'=>$jsonDataGanttChart));
+=======
+        $jsonData = GraphChart::createPieChart($events);
+        // Create patients form
+        $form = $this->patientForm();
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
+            'jsonData' => $jsonData,
+            'form' => $form
+        ));
+>>>>>>> 30a5de5f6c90181ec8d06379ec1694b6fdcdb393
     }
 
     public function loginAction(Request $request)
@@ -48,8 +59,24 @@ class DefaultController extends Controller
         return $this->render('EnstbVisplatBundle:Login:login.html.twig', array(
             // last username entered by the user
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
+            'error' => $error,
         ));
+    }
+
+    public function patientForm()
+    {
+        // Get current user
+        $doctor = $this->get('security.context')->getToken()->getUser();
+        // Create a doctrine manager
+        $em = $this->getDoctrine()->getManager();
+        $patients = $em->getRepository('EnstbVisplatBundle:User')->findPatientsOfDoctor($doctor->getId());
+        $form = $this->createFormBuilder()
+            ->add('patient', 'choice', array(
+                'choices' => $patients,
+                'required' => true
+            ))
+            ->getForm();
+        return $form;
     }
 
 }

@@ -3,6 +3,7 @@
 namespace Enstb\Bundle\VisplatBundle\Administrator;
 
 
+use Enstb\Bundle\VisplatBundle\Repository\UserRepository;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -25,7 +26,18 @@ class UserAdmin extends Admin
                 'expanded' => true,
                 'compound' => true,
                 'multiple' => true,
-                'by_reference' => false
+                'by_reference' => false // the setter of rolesCollection will be called.
+            ))
+            ->add('doctorID', 'entity', array(
+                'class' => 'EnstbVisplatBundle:User',
+                'property' => 'name',
+                'label' => 'Doctor\'s name',
+                // Query only doctors to be shown in the choice field
+                'query_builder' => function (UserRepository $er) {
+                        return $er->createQueryBuilder('u')->orderBy('u.name', 'ASC')->where('u.doctorId is NULL');
+                    },
+                'empty_value' => 'No category',
+
             ));
     }
 

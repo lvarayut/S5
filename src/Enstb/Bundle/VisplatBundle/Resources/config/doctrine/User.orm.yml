@@ -36,5 +36,15 @@ Enstb\Bundle\VisplatBundle\Entity\User:
             targetEntity: Data
             mappedBy: patientId
 
+#   Self-references of doctorId
+    oneToMany:
+        patients:
+            targetEntity: User
+            mappedBy: doctorId
+    manyToOne:
+        doctorId:
+            targetEntity: User
+            inversedBy: patients
+
     lifecycleCallbacks:
         prePersist: [ setDateCreatedValue ]
