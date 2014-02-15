@@ -145,7 +145,7 @@ class DefaultController extends Controller
 
     //
     public function dropDatasetTable($patientId){
-        $sql = "DROP TABLE DATA_".$patientId.";";
+        $sql = "DROP TABLE IF EXISTS DATA_" . $patientId . ";";
         $stmt = $this->getDoctrine()->getManager()->getConnection()->prepare($sql);
         $stmt->execute();
     }

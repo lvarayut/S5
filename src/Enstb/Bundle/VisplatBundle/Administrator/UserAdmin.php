@@ -26,7 +26,7 @@ class UserAdmin extends Admin
                 'expanded' => true,
                 'compound' => true,
                 'multiple' => true,
-                'by_reference' => false
+                'by_reference' => false // the setter of rolesCollection will be called.
             ))
             ->add('doctorID', 'entity', array(
                 'class' => 'EnstbVisplatBundle:User',
