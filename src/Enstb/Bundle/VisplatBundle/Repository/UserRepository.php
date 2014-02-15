@@ -22,7 +22,7 @@ class UserRepository extends EntityRepository
         $stmt->execute();
         return $stmt->fetchAll();
     }
-<<<<<<< HEAD
+
 	/**
      * Fetch all events
      *
@@ -40,7 +40,7 @@ class UserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
 
-=======
+
 
     /**
      * Fetch all patients of the current doctor
@@ -64,5 +64,5 @@ class UserRepository extends EntityRepository
         return $patientArr;
         return $query->getResult();
     }
->>>>>>> 30a5de5f6c90181ec8d06379ec1694b6fdcdb393
+
 }
