@@ -7,28 +7,28 @@ $(function() {
 
 
 //resizePieChart
-var aspect = document.getElementById("piechart").height/document.getElementById("piechart").width,
+var aspect = document.getElementById("piechart").offsetHeight/document.getElementById("piechart").offsetWidth;
     chart = $(".resizePieChart");
 $(window).on("resize", function () {
     var targetWidth = chart.parent().width();
     chart.attr("width", targetWidth);
-    chart.attr("height", Math.round(targetWidth / aspect));
+    chart.attr("height", Math.round(targetWidth * aspect));
 }); 
 
 //resizeTable
-var aspect = document.getElementById("piechartTable").height/document.getElementById("piechartTable").width,
+var aspect2 = document.getElementById("piechartTable").offsetHeight/document.getElementById("piechartTable").offsetWidth;
     table = $(".resizeTable");
 $(window).on("resize", function () {
     var targetWidth = table.parent().width();
     table.attr("width", targetWidth);
-    table.attr("height", targetWidth / aspect);
-}); 
+    table.attr("height", targetWidth * aspect2);
+});     
 
 //resizeGanttChart
-var aspect = (window.innerHeight*2/3)/document.getElementById("ganttchart").width,
+var aspect3 = document.getElementById("ganttchart").offsetHeight/document.getElementById("ganttchart").offsetWidth;
     gantt = $(".resizeGanttChart");
 $(window).on("resize", function () {
-    var targetWidth = gantt.parent().width();
+    var targetWidth = table.parent().width();
     gantt.attr("width", targetWidth);
-    gantt.attr("height", Math.round(targetWidth / aspect));
-}); 
+    gantt.attr("height", targetWidth * aspect3);
+});     

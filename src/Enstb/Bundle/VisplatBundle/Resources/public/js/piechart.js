@@ -25,7 +25,7 @@ function createPieChart(jsonData) {
 	var vis = d3.select("#piechart")
 	.append("svg:svg")
 	.data([data])                   //associate our data with the document
-	.attr("width", document.getElementById("piechart").width)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+	.attr("width", document.getElementById("piechart").offsetWidth)           //set the width and height of our visualization (these will be attributes of the <svg> tag
 	.attr("height", h)
 	// Make it responsive.
 	.attr("viewBox", "0 0 " + w*0.6 + " " + h)

@@ -74,15 +74,16 @@ d3.gantt = function() {
 	var svg = d3.select("#ganttchart")
 	.append("svg")
 	
-	.attr("width", document.getElementById("ganttchart").width)
+	.attr("width", document.getElementById("ganttchart").offsetWidth)
 	.attr("height", height + margin.top + margin.bottom)
 	// Make it responsive.
 	.attr("viewBox", "0 0 " + width*0.6 + " " + height)
 	.attr("preserveAspectRatio", "xMidYMid")
 	.attr("class", "resizeGanttChart")
+	
 	.append("g")
         .attr("class", "gantt-chart")
-	.attr("width", document.getElementById("ganttchart").width)
+	.attr("width", document.getElementById("ganttchart").offsetWidth)
 	.attr("height", height + margin.top + margin.bottom)
 	.attr("transform", "translate(" + -60 + ", " + 0 + ")");
 	
