@@ -12,34 +12,35 @@ class UserRepository extends EntityRepository
      *
      * @return mixed, Array of events
      */
-    public function findAllGroupByEvent(){
+    public function findAllGroupByEvent($patientId)
+    {
         $sql = "
             SELECT `Event`, `Begin`, `End`, COUNT(`Event`) AS Frequency,
             TIMESTAMPDIFF( SECOND, `Begin`, `End`) AS Time
-            FROM `Data_3` GROUP BY `Event`;
+            FROM `Data_" . $patientId . "` GROUP BY `Event`;
         ";
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-	/**
+    /**
      * Fetch all events
      *
      * @return mixed, Array of events
      */
-    public function findAllEvents(){
+    public function findAllEvents($patientId)
+    {
         $sql = "
             SELECT `Event` AS `taskName`, 
 			`Begin` AS `startDate`, 
 			`End` AS `endDate` 
-			FROM `Data_3`;
+			FROM `Data_" . $patientId . "`;
         ";
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
     }
-
 
 
     /**

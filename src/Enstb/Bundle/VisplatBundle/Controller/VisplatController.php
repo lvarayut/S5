@@ -5,6 +5,7 @@ namespace Enstb\Bundle\VisplatBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Enstb\Bundle\VisplatBundle\Graph\GraphChart;
 
 class VisplatController extends Controller
@@ -15,25 +16,27 @@ class VisplatController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function indexAction(Request $request)
+    public function statusAction(Request $request)
     {
         // ADLs
         $em = $this->getDoctrine()->getManager();
-        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent();
-		$ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents();
+        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent(3);
+        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents(3);
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
 
-	if (!$ganttEvents) {
+        if (!$ganttEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
-		$jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
-        return $this->render('EnstbVisplatBundle:Graph:status.html.twig',array(
-			'jsonDataPieChart'=>$jsonDataPieChart,
-			'jsonDataGanttChart'=>$jsonDataGanttChart
-	));
+        $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
+
+
+        return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
+            'jsonDataPieChart' => $jsonDataPieChart,
+            'jsonDataGanttChart' => $jsonDataGanttChart
+        ));
     }
 
     /**
@@ -67,7 +70,7 @@ class VisplatController extends Controller
      *
      * @return \Symfony\Component\Form\Form
      */
-    public function patientFormAction()
+    public function patientFormAction(Request $request)
     {
         $patientArray = array();
         // Get current user
@@ -88,10 +91,35 @@ class VisplatController extends Controller
                 'label' => false
             ))
             ->getForm();
-
         return $this->render('EnstbVisplatBundle:Visplat:patientForm.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * Handle the Ajax request for updating the graph data.
+     * @param Request $request
+     * @return Response
+     */
+    public function handleAjaxUpdateAction(Request $request)
+    {
+        // Get the JSON object from Ajax
+        $patient = json_decode($request->getContent());
+        $em = $this->getDoctrine()->getManager();
+        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patient->id);
+        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patient->id);
+        if (!$pieEvents) {
+            throw $this->createNotFoundException('Unable to find events.');
+        }
+
+        if (!$ganttEvents) {
+            throw $this->createNotFoundException('Unable to find events.');
+        }
+        $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
+        $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
+        $response = array($jsonDataPieChart, $jsonDataGanttChart);
+        return new Response(json_encode($response));
+
     }
 
 }

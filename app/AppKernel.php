@@ -28,7 +28,8 @@ class AppKernel extends Kernel
             new Sonata\IntlBundle\SonataIntlBundle(),
             // DataFixtures
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-
+            // JSRouting to enable using route in javascript
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Enstb\Bundle\VisplatBundle\EnstbVisplatBundle(),
             new Enstb\Bundle\DataManagementBundle\EnstbDataManagementBundle(),
         );

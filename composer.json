@@ -4,7 +4,9 @@
     "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": {
+            "": "src/"
+        }
     },
     "require": {
         "php": ">=5.3.3",
@@ -21,11 +23,12 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "braincrafted/bootstrap-bundle": "~2.0.0",
         "twbs/bootstrap": "3.0.*",
-        "jquery/jquery":  "1.10.*",
+        "jquery/jquery": "1.10.*",
         "sonata-project/admin-bundle": "2.2.9",
         "sonata-project/doctrine-orm-admin-bundle": "~2.2.5",
         "sonata-project/intl-bundle": "~2.2.0",
-        "doctrine/doctrine-fixtures-bundle": "~2.2.0"
+        "doctrine/doctrine-fixtures-bundle": "~2.2.0",
+        "friendsofsymfony/jsrouting-bundle": "~1.5.3"
     },
 
     "repositories": [

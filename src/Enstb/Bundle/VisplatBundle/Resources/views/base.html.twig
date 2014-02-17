@@ -8,34 +8,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% block stylesheets %}
-    <!-- Bootstrap -->
-    <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet" media="screen">
-    <!-- Our customized css-->
-    <link href="{{ asset('bundles/enstbvisplat/css/visplat.css') }}" rel="stylesheet" media="screen">
+        <!-- Bootstrap -->
+        <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+        <!-- Our customized css-->
+        <link href="{{ asset('bundles/enstbvisplat/css/visplat.css') }}" rel="stylesheet" media="screen">
     {% endblock %}
 
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
 
-    <link rel="shortcut icon" href="{{ asset('/bundles/enstbvisplat/images/favicon.ico') }}" />
-    
+    <link rel="shortcut icon" href="{{ asset('/bundles/enstbvisplat/images/favicon.ico') }}"/>
+
     <!-- D3js should be included before generating any graphs/charts-->
     <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/enstbvisplat/js/d3.v3.min.js') }}"></script>
-	
-	<!-- File needed to generate the Gantt Chart -->
-	<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/enstbvisplat/js/gantt-chart-d3.js') }}"></script>
+
+    <!-- File needed to generate the Gantt Chart -->
+    <script type="text/javascript" charset="utf-8"
+            src="{{ asset('bundles/enstbvisplat/js/gantt-chart-d3.js') }}"></script>
 </head>
 
 <body {% block bodyclass %}{% endblock %}>
 {% block body %}{% endblock %}
 {% block javascripts %}
-<!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<!-- Include all JavaScripts, compiled by Assetic -->
-<script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
-<!-- Our customized js -->
-<script src="{{ asset('bundles/enstbvisplat/js/visplat.js') }}"></script>
-
+    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all JavaScripts, compiled by Assetic -->
+    <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+    <!-- FOSJSRouting -->
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <!-- Our customized js -->
+    <script src="{{ asset('bundles/enstbvisplat/js/visplat.js') }}"></script>
+    <!-- Ajax, should be included under other javascripts in order to use their functions -->
+    <script src="{{ asset('bundles/enstbvisplat/js/ajax-patient-field.js') }}"></script>
 {% endblock %}
 
 </body>
