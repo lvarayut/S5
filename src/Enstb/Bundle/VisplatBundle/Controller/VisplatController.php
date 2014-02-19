@@ -20,19 +20,15 @@ class VisplatController extends Controller
     {
         // ADLs
         $em = $this->getDoctrine()->getManager();
-        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent(3);
-        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents(3);
-        if (!$pieEvents) {
-            throw $this->createNotFoundException('Unable to find events.');
-        }
-
-        if (!$ganttEvents) {
-            throw $this->createNotFoundException('Unable to find events.');
-        }
-        $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
-        $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
-
-
+        // Get current user
+        $doctor = $this->get('security.context')->getToken()->getUser();
+        // Create a doctrine manager
+        $em = $this->getDoctrine()->getManager();
+        $patients = $em->getRepository('EnstbVisplatBundle:User')->findPatientsOfDoctor($doctor->getId());
+        // Create Status Graph, passing the first patient'id order by name
+        $graphs = $this->createStatusGraph($patients[0]['id']);
+        $jsonDataPieChart = $graphs[0];
+        $jsonDataGanttChart = $graphs[1];
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
             'jsonDataPieChart' => $jsonDataPieChart,
             'jsonDataGanttChart' => $jsonDataGanttChart
@@ -105,9 +101,24 @@ class VisplatController extends Controller
     {
         // Get the JSON object from Ajax
         $patient = json_decode($request->getContent());
+        $response = $this->createStatusGraph($patient->id);
+        return new Response(json_encode($response));
+
+    }
+
+    /**
+     * Create all the status graphs
+     *
+     * @param $patientId
+     * @return array of JSON data
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function createStatusGraph($patientId)
+    {
+        // Create a doctrine manager
         $em = $this->getDoctrine()->getManager();
-        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patient->id);
-        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patient->id);
+        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patientId);
+        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId);
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events.');
         }
@@ -117,9 +128,7 @@ class VisplatController extends Controller
         }
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
         $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
-        $response = array($jsonDataPieChart, $jsonDataGanttChart);
-        return new Response(json_encode($response));
-
+        return array($jsonDataPieChart, $jsonDataGanttChart);
     }
 
 }
