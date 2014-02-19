@@ -16,7 +16,7 @@ function createPieChart(jsonData) {
 	var margin = {top: 40, right: 20, bottom: 0, left: 50};
 	var w = window.innerWidth,          //width
 	h = window.innerHeight*2/3,      		//height
-	r = 180,                            //radius
+	r = 150,                            //radius
 	color = d3.scale.category20c();     //range of colors
 
 	// -------------------------------------------------------------------------------------------------------------------------------
