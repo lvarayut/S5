@@ -54,6 +54,9 @@ app/config/parameters.yml
 ehthumbs.db
 Thumbs.db
 
+# Backup files
+bin/*.bat
+
 # PHPStorm IDE related
 .idea
 
