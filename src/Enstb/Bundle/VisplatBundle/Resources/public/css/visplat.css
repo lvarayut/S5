@@ -57,13 +57,33 @@ bottom: 0;
 width: 100%;
 }
 
+/*Container*/
+.container{
+width:100%;
+}
+
+/* Legends of graphs*/
+#legend  {
+height: 100%;
+margin: 10px;
+display: inline;
+}
+
+.head-legend {
+font-size: 35px;
+}
+
+.p-legend {
+font-size: 18px;
+color: #5A5A5A;
+text-align: justify;
+}
+
 /*Pie Chart*/
 
 #piechart {
-width: 60%;
 height: 100%;
 margin: 10px;
-background-color: #eee;
 }
 
 .slice text {
@@ -72,10 +92,8 @@ background-color: #eee;
 }  
 
 #piechartTable {
-width: 60%;
-height: 100%;
 margin: 10px;
-background-color: #eee;
+display: inline-block;
 }
 
 table {
@@ -92,6 +110,7 @@ th {
 	border-width:1px; 
 	border-style:solid; 
 	border-color:black;
+	height: 50px;
 }
 
 td {
@@ -108,10 +127,8 @@ td {
 /* Gantt Chart */
 
 #ganttchart {
-width: 60%;
 height: 100%;
 margin: 10px;
-background-color: #eee;
 }
 
 .chart {
