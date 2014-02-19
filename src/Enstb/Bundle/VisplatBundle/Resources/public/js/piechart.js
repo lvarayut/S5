@@ -33,7 +33,7 @@ function createPieChart(jsonData) {
 	.attr("class", "resizePieChart")
 
 	.append("svg:g")                //make a group to hold our pie chart
-	.attr("transform", "translate(" + (w*0.3) + "," + (h/2) + ")")    //choose of position of the pie chart in the page
+	.attr("transform", "translate(" + (w*0.28) + "," + (h/2) + ")")    //choose of position of the pie chart in the page
 
 	var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
 	.outerRadius(r);
@@ -84,8 +84,8 @@ function createPieChart(jsonData) {
 	
 		var table = d3.select("#piechartTable")
 		.append("table")
-		.attr("width", w/2)
-		.attr("height", h/2)
+		.attr("width", document.getElementById("piechartTable").offsetWidth)
+		.attr("height", h)
 		
 		// Make it responsive.
 		.attr("viewBox", "0 0 " + w*0.6 + " " + h)
