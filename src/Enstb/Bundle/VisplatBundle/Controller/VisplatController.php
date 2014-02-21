@@ -26,12 +26,10 @@ class VisplatController extends Controller
         $em = $this->getDoctrine()->getManager();
         $patients = $em->getRepository('EnstbVisplatBundle:User')->findPatientsOfDoctor($doctor->getId());
         // Create Status Graph, passing the first patient'id order by name
-        $graphs = $this->createStatusGraph($patients[0]['id']);
-        $jsonDataPieChart = $graphs[0];
-        $jsonDataGanttChart = $graphs[1];
+        $graphJSON = $this->createStatusGraph($patients[0]['id']);
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
-            'jsonDataPieChart' => $jsonDataPieChart,
-            'jsonDataGanttChart' => $jsonDataGanttChart
+            'jsonDataPieChart' => $graphJSON['pieChart'],
+            'jsonDataGanttChart' => $graphJSON['ganttChart']
         ));
     }
 
@@ -101,8 +99,9 @@ class VisplatController extends Controller
     {
         // Get the JSON object from Ajax
         $patient = json_decode($request->getContent());
-        $response = $this->createStatusGraph($patient->id);
-        return new Response(json_encode($response));
+        // Create the status graph
+        $graphJSON = $this->createStatusGraph($patient->id);
+        return new Response(json_encode($graphJSON));
 
     }
 
@@ -128,7 +127,7 @@ class VisplatController extends Controller
         }
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
         $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
-        return array($jsonDataPieChart, $jsonDataGanttChart);
+        return array('pieChart' => $jsonDataPieChart, 'ganttChart' => $jsonDataGanttChart);
     }
 
 }
