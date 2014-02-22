@@ -31,8 +31,12 @@
                     <a class="navbar-brand" href="{{ path('enstb_visplat_homepage') }}">Visualization Platform</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    {# Render patients selector#}
-                    {% render(controller('EnstbVisplatBundle:Visplat:patientForm')) %}
+                    {# Render date selector #}
+                    {% render(controller('EnstbVisplatBundle:Visplat:dateForm')) %}
+                    {# Render patients selector #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {% render(controller('EnstbVisplatBundle:Visplat:patientForm')) %}
+                    {% endif %}
                     <ul class="nav navbar-nav pull-right">
                         <li class="active"><a href="#">ADLs</a></li>
                         <li><a href="#">History</a></li>
