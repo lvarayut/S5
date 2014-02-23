@@ -90,8 +90,8 @@ function updateEndDateField(patientId) {
 $(document).ready(function () {
     // Global variable
     $('#form_patient').change(function () {
-        // Disabled the end date selector when the user is changed.
-        $('#form_endDate').attr('disabled', 'disabled');
+//        // Disabled the end date selector when the user is changed.
+//        $('#form_endDate').attr('disabled', 'disabled');
         var patientId = $(this).val();
         // Update date field
         updateDateField(patientId);
@@ -103,9 +103,9 @@ $(document).ready(function () {
     });
     $('#form_startDate').change(function () {
         // Enable endDate selector
-        if ($('#form_endDate').attr('disabled') != undefined) {
-            $('#form_endDate').removeAttr('disabled');
-        }
+//        if ($('#form_endDate').attr('disabled') != undefined) {
+//            $('#form_endDate').removeAttr('disabled');
+//        }
         var patientId = $('#form_patient').val();
         var startDate = $(this).val();
         updateEndDateField(patientId);
@@ -116,7 +116,7 @@ $(document).ready(function () {
         var patientId = $('#form_patient').val();
         var startDate = $('#form_startDate').val();
         var endDate = $(this).val();
-        console.log(startDate + endDate);
         updateGraph(patientId, startDate, endDate);
+
     });
 });

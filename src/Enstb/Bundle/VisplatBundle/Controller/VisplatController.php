@@ -153,7 +153,7 @@ class VisplatController extends Controller
                 'choices' => $dateArray,
                 'required' => true,
                 'label' => false,
-                'attr' => array('disabled' => 'disabled')
+//                'attr' => array('disabled' => 'disabled')
             ))
             ->getForm();
         return $this->render('EnstbVisplatBundle:Visplat:dateForm.html.twig', array(
