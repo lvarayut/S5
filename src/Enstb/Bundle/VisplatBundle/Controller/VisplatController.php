@@ -18,17 +18,21 @@ class VisplatController extends Controller
      */
     public function statusAction(Request $request)
     {
+        // Redirect admin to Admin page
+        if ($this->get('security.context')->isGranted('ROLE_SUPERADMIN')) {
+            return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
+        }
         // ADLs
         $em = $this->getDoctrine()->getManager();
         // Get current user
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        // Get first patient
-        $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
         // Verify whether the current is a doctor or a patient
-        if ($patient) {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // Get first patient
+            $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
             $patientId = $patient['id'];
-        } else {
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
             $patientId = $user->getId();
         }
         // Get first date of the patient
@@ -115,8 +119,14 @@ class VisplatController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         // Create a doctrine manager
         $em = $this->getDoctrine()->getManager();
-        $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
-        $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($patient['id']);
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // Get first patient
+            $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
+            $patientId = $patient['id'];
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $patientId = $user->getId();
+        }
+        $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($patientId);
         if ($dates) {
             // Make an associative array
             foreach ($dates as $date) {
@@ -160,8 +170,14 @@ class VisplatController extends Controller
     {
         // Get the JSON object from Ajax
         $patient = json_decode($request->getContent());
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $graphJSON = $this->createStatusGraph($patient->id, $patient->startDate, $patient->endDate);
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            // Get current user
+            $user = $this->get('security.context')->getToken()->getUser();
+            $graphJSON = $this->createStatusGraph($user->getId(), $patient->startDate, $patient->endDate);
+        }
         // Create the status graph
-        $graphJSON = $this->createStatusGraph($patient->id, $patient->startDate, $patient->endDate);
         return new Response(json_encode($graphJSON));
 
     }
@@ -177,7 +193,13 @@ class VisplatController extends Controller
         // Get the JSON object from Ajax
         $patient = json_decode($request->getContent());
         $em = $this->getDoctrine()->getManager();
-        $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($patient->id);
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($patient->id);
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            // Get current user
+            $user = $this->get('security.context')->getToken()->getUser();
+            $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($user->getId());
+        }
         if ($dates) {
             // Make an associative array
             foreach ($dates as $date) {

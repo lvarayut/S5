@@ -31,8 +31,10 @@
                     <a class="navbar-brand" href="{{ path('enstb_visplat_homepage') }}">Visualization Platform</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    {# Render date selector #}
-                    {% render(controller('EnstbVisplatBundle:Visplat:dateForm')) %}
+                    {% if is_granted('ROLE_USER') %}
+                        {# Render date selector #}
+                        {% render(controller('EnstbVisplatBundle:Visplat:dateForm')) %}
+                    {% endif %}
                     {# Render patients selector #}
                     {% if is_granted('ROLE_ADMIN') %}
                         {% render(controller('EnstbVisplatBundle:Visplat:patientForm')) %}
