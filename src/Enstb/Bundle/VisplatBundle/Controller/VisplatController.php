@@ -19,7 +19,7 @@ class VisplatController extends Controller
     public function statusAction(Request $request)
     {
         // Redirect admin to Admin page
-        if ($this->get('security.context')->isGranted('ROLE_SUPERADMIN')) {
+        if ($this->get('security.context')->isGranted('ROLE_SUPERADMIN') && $this->get('security.context')->isGranted('ROLE_ADMIN') == false) {
             return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
         }
         // ADLs
