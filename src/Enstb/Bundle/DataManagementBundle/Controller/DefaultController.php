@@ -3,6 +3,7 @@
 namespace Enstb\Bundle\DataManagementBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\RuntimeException;
 
@@ -102,11 +103,15 @@ class DefaultController extends Controller
     // Import file into Database
     public function importDataset($file,$patientId){
         $dataTransformedArr = $this->transform($file);
-        // Traverse each line of the Dataset
-        for($i=0;$i<sizeof($dataTransformedArr);$i+=2){
-            $startEvent = $dataTransformedArr[$i];
-            $endEvent = $dataTransformedArr[$i+1];
-            $this->insertDataset($startEvent,$endEvent,$patientId);
+        try {
+            // Traverse each line of the Dataset
+            for ($i = 0; $i < sizeof($dataTransformedArr); $i += 2) {
+                $startEvent = $dataTransformedArr[$i];
+                $endEvent = $dataTransformedArr[$i + 1];
+                $this->insertDataset($startEvent, $endEvent, $patientId);
+            }
+        } catch (Exception $e) {
+            echo 'Cannot import the dataset, make sure that all the events has both start and end';
         }
 
     }

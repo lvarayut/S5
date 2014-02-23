@@ -57,6 +57,11 @@ bottom: 0;
 width: 100%;
 }
 
+/* Navbar form */
+.navbar-form {
+    padding: 0;
+}
+
 /*Container*/
 .container{
 width:100%;

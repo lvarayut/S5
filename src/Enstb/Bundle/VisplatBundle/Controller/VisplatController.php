@@ -18,20 +18,30 @@ class VisplatController extends Controller
      */
     public function statusAction(Request $request)
     {
+        // Redirect admin to Admin page
+        if ($this->get('security.context')->isGranted('ROLE_SUPERADMIN')) {
+            return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
+        }
         // ADLs
         $em = $this->getDoctrine()->getManager();
         // Get current user
-        $doctor = $this->get('security.context')->getToken()->getUser();
-        // Create a doctrine manager
+        $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $patients = $em->getRepository('EnstbVisplatBundle:User')->findPatientsOfDoctor($doctor->getId());
+        // Verify whether the current is a doctor or a patient
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // Get first patient
+            $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
+            $patientId = $patient['id'];
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $patientId = $user->getId();
+        }
+        // Get first date of the patient
+        $startDate = $em->getRepository('EnstbVisplatBundle:User')->findFirstEventDate($patientId);
         // Create Status Graph, passing the first patient'id order by name
-        $graphs = $this->createStatusGraph($patients[0]['id']);
-        $jsonDataPieChart = $graphs[0];
-        $jsonDataGanttChart = $graphs[1];
+        $graphJSON = $this->createStatusGraph($patientId, $startDate, $startDate);
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
-            'jsonDataPieChart' => $jsonDataPieChart,
-            'jsonDataGanttChart' => $jsonDataGanttChart
+            'jsonDataPieChart' => $graphJSON['pieChart'],
+            'jsonDataGanttChart' => $graphJSON['ganttChart']
         ));
     }
 
@@ -79,15 +89,74 @@ class VisplatController extends Controller
             foreach ($patients as $patient) {
                 $patientArray[$patient['id']] = $patient['name'];
             }
+        } else {
+            throw new RuntimeException(
+                'There is no patient in the database'
+            );
         }
         $form = $this->createFormBuilder()
             ->add('patient', 'choice', array(
                 'choices' => $patientArray,
                 'required' => true,
-                'label' => false
+                'label' => false,
             ))
             ->getForm();
         return $this->render('EnstbVisplatBundle:Visplat:patientForm.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+
+    /**
+     * Create a date form to be embedded into a layout.html.twig
+     *
+     * @return \Symfony\Component\Form\Form
+     */
+    public function dateFormAction(Request $request)
+    {
+        $dateArray = array();
+        // Get current user
+        $user = $this->get('security.context')->getToken()->getUser();
+        // Create a doctrine manager
+        $em = $this->getDoctrine()->getManager();
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // Get first patient
+            $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
+            $patientId = $patient['id'];
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $patientId = $user->getId();
+        }
+        $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($patientId);
+        if ($dates) {
+            // Make an associative array
+            foreach ($dates as $date) {
+                $dateArray[$date['date']] = $date['date'];
+            }
+        } else {
+            throw new RuntimeException(
+                'There is no patient in the database'
+            );
+        }
+//        $form = $this->createFormBuilder()
+//            ->add('date', 'date', array(
+//                'input' => 'string',
+//                'widget' => 'single_text'
+//            ))
+//            ->getForm();
+        $form = $this->createFormBuilder()
+            ->add('startDate', 'choice', array(
+                'choices' => $dateArray,
+                'required' => true,
+                'label' => false
+            ))
+            ->add('endDate', 'choice', array(
+                'choices' => $dateArray,
+                'required' => true,
+                'label' => false,
+                'attr' => array('disabled' => 'disabled')
+            ))
+            ->getForm();
+        return $this->render('EnstbVisplatBundle:Visplat:dateForm.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -97,12 +166,52 @@ class VisplatController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function handleAjaxUpdateAction(Request $request)
+    public function handleAjaxUpdatePatientAction(Request $request)
     {
         // Get the JSON object from Ajax
         $patient = json_decode($request->getContent());
-        $response = $this->createStatusGraph($patient->id);
-        return new Response(json_encode($response));
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $graphJSON = $this->createStatusGraph($patient->id, $patient->startDate, $patient->endDate);
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            // Get current user
+            $user = $this->get('security.context')->getToken()->getUser();
+            $graphJSON = $this->createStatusGraph($user->getId(), $patient->startDate, $patient->endDate);
+        }
+        // Create the status graph
+        return new Response(json_encode($graphJSON));
+
+    }
+
+
+    /**
+     * Handle the Ajax request for updating the date field.
+     * @param Request $request
+     * @return Response
+     */
+    public function handleAjaxUpdateDateAction(Request $request)
+    {
+        // Get the JSON object from Ajax
+        $patient = json_decode($request->getContent());
+        $em = $this->getDoctrine()->getManager();
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($patient->id);
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            // Get current user
+            $user = $this->get('security.context')->getToken()->getUser();
+            $dates = $em->getRepository('EnstbVisplatBundle:User')->findAllEventDate($user->getId());
+        }
+        if ($dates) {
+            // Make an associative array
+            foreach ($dates as $date) {
+                $dateArray[] = $date['date'];
+            }
+        } else {
+            throw new RuntimeException(
+                'There is no patient in the database'
+            );
+        }
+        // Create the status graph
+        return new Response(json_encode($dateArray));
 
     }
 
@@ -113,22 +222,22 @@ class VisplatController extends Controller
      * @return array of JSON data
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function createStatusGraph($patientId)
+    public function createStatusGraph($patientId, $startDate, $endDate)
     {
         // Create a doctrine manager
         $em = $this->getDoctrine()->getManager();
-        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patientId);
-        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId);
+        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patientId, $startDate, $endDate);
+        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId, $startDate, $endDate);
         if (!$pieEvents) {
-            throw $this->createNotFoundException('Unable to find events.');
+            throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
-
         if (!$ganttEvents) {
-            throw $this->createNotFoundException('Unable to find events.');
+            throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
         $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
-        return array($jsonDataPieChart, $jsonDataGanttChart);
+        return array('pieChart' => $jsonDataPieChart, 'ganttChart' => $jsonDataGanttChart);
     }
+
 
 }

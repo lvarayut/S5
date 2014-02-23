@@ -1,0 +1,7 @@
+<form class="navbar-form navbar-right" role="form" action="" method="post">
+    {{ form_start(form,{ 'style': 'inline' }) }}
+    <span>From: </span>{{ form_row(form.startDate) }}
+    <span>To: </span>{{ form_row(form.endDate) }}
+    {{ form_end(form) }}
+</form>
+

@@ -37,6 +37,7 @@ class UserAdmin extends Admin
                         return $er->createQueryBuilder('u')->orderBy('u.name', 'ASC')->where('u.doctorId is NULL');
                     },
                 'empty_value' => 'No category',
+                'required' => false
 
             ));
     }

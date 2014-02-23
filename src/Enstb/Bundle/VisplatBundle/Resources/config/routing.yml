@@ -4,7 +4,13 @@ enstb_visplat_homepage:
 
 enstb_visplat_ajax_update_patient:
     pattern: /ajax/patient
-    defaults: { _controller: EnstbVisplatBundle:Visplat:handleAjaxUpdate}
+    defaults: { _controller: EnstbVisplatBundle:Visplat:handleAjaxUpdatePatient}
+    options:
+        expose: true
+
+enstb_visplat_ajax_update_date:
+    pattern: /ajax/date
+    defaults: { _controller: EnstbVisplatBundle:Visplat:handleAjaxUpdateDate}
     options:
         expose: true
 
