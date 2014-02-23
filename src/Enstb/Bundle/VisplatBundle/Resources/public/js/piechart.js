@@ -33,7 +33,7 @@ function createPieChart(jsonData) {
 	.attr("class", "resizePieChart")
 
 	.append("svg:g")                //make a group to hold our pie chart
-	.attr("transform", "translate(" + (w*0.28) + "," + (h/2) + ")")    //choose of position of the pie chart in the page
+	.attr("transform", "translate(" + (document.getElementById("piechart").offsetWidth/2) + "," + (h/2) + ")")    //choose of position of the pie chart in the page
 
 	var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
 	.outerRadius(r);
@@ -57,18 +57,26 @@ function createPieChart(jsonData) {
 
 
 	// second arc for labels
-	var arc2 = d3.svg.arc()
-	.outerRadius(r)
-	.innerRadius(r + 180);
+	arc2 = d3.svg.arc().innerRadius(r * .6).outerRadius(r);
 
 	// label attached to second arc
 
 	arcs.append("text")
-	.attr("transform", function (d) {
-		return "translate(" + arc2.centroid(d) + ")";
-	})
-	.attr("dy", "-2.5em")
-	.style("text-anchor", "middle")
+	.attr("transform", function(d) {
+        var c = arc2.centroid(d),
+            x = c[0],
+            y = c[1],
+            // pythagorean theorem for hypotenuse
+            h = Math.sqrt(x*x + y*y);
+        return "translate(" + (x/h * (r+30)) +  ',' +
+           (y/h * (r+30)) +  ")"; 
+    })
+    .attr("dy", ".35em")
+    .attr("text-anchor", function(d) {
+        // are we past the center?
+        return (d.endAngle + d.startAngle)/2 > Math.PI ?
+            "end" : "start";
+    })
 	.text(function (d, i) {
 		if ((data[i].Duration) >= 10) {
 			return data[i].Event + " ; Freq. : " + data[i].Frequency + " ; " + data[i].Duration + "%";
@@ -105,6 +113,8 @@ function createPieChart(jsonData) {
 		.text(function (column) {
 			return column;
 		}); 
+		
+		
 
 		// create a row for each object in the data
 		var rows = tbody.selectAll("tr")
