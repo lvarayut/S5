@@ -1,14 +1,14 @@
 /* Navbar */
 .vp-navbar {
-	margin-bottom: 0;
-	border-radius: 0;
-	min-height: 35px;
+margin-bottom: 0;
+border-radius: 0;
+min-height: 35px;
 }
 
 .vp-navbar-text {
-	margin-top: 7px;
-	margin-bottom: 0;
-	margin-right: 10px !important;
+margin-top: 7px;
+margin-bottom: 0;
+margin-right: 10px !important;
 padding: 0;
 }
 
@@ -22,9 +22,9 @@ background: rgba(248, 248, 248, 0.95);
 /* Login form*/
 
 .vp-login-wrapper {
-	padding-top: 80px;
-	padding-bottom: 80px;
-	background-color: #eee;
+padding-top: 80px;
+padding-bottom: 80px;
+background-color: #eee;
 }
 
 .vp-form-login {
@@ -35,19 +35,19 @@ margin: 0 auto;
 
 .vp-form-title {
 margin: 20px 0;
-	text-align: center;
+text-align: center;
 }
 
 .vp-form-alert {
 padding: 7px;
-	margin-bottom: 10px;
-	font-size: 80%;
+margin-bottom: 10px;
+font-size: 80%;
 }
 
 /* Import form */
 .vp-import-wrapper {
 padding: 20px 0;
-	max-width: 330px;
+max-width: 330px;
 margin: 0 auto;
 }
 
@@ -64,12 +64,12 @@ margin:0;
 padding:0;
 }
 
- .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
 position: static;
  }
 
- @media (min-width: 768px) {
-   .navbar > .container .navbar-brand {
+@media (min-width: 768px) {
+.navbar > .container .navbar-brand {
 margin-left: 20px;
 }
 }
@@ -78,13 +78,25 @@ margin-left: 20px;
 
 /* Legends of graphs*/
 #legend  {
+position:relative;
 height: 100%;
-margin: 10px;
+margin-top: 9%;
 display: inline;
 }
 
 .head-legend {
 font-size: 35px;
+text-align: center;
+
+color: rgba(179,220,237,1);
+color: -moz-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+color: -webkit-gradient(left top, right top, color-stop(0%, rgba(179,220,237,1)), color-stop(50%, rgba(41,184,229,1)), color-stop(100%, rgba(188,224,238,1)));
+color: -webkit-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+color: -o-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+color: -ms-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=1 );
+
 }
 
 .p-legend {
@@ -92,6 +104,7 @@ font-size: 18px;
 color: #5A5A5A;
 text-align: justify;
 }
+
 
 /*Pie Chart*/
 
@@ -101,8 +114,8 @@ margin: 10px;
 }
 
 .slice text {
-	font-size: 12pt;
-	font-family: Arial;
+font-size: 12pt;
+font-family: Arial;
 }  
 
 #piechartTable {
