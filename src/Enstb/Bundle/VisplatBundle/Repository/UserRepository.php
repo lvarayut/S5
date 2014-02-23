@@ -12,16 +12,22 @@ class UserRepository extends EntityRepository
      *
      * @return mixed, Array of events
      */
-    public function findAllGroupByEvent($patientId, $date)
+    public function findAllGroupByEvent($patientId, $startDate, $endDate)
     {
         $sql = "
             SELECT `Event`, `Begin`, `End`, COUNT(`Event`) AS Frequency,
             TIMESTAMPDIFF( SECOND, `Begin`, `End`) AS Time
-            FROM `Data_" . $patientId . "` WHERE DATE_FORMAT(`begin`, '%d/%b/%Y') = :date
+            FROM `Data_" . $patientId . "`
+            WHERE DATE(`begin`)
+            BETWEEN
+            STR_TO_DATE(:startDate,'%d/%b/%Y')
+            AND
+            STR_TO_DATE(:endDate,'%d/%b/%Y')
             GROUP BY `Event`;
         ";
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
-        $stmt->bindValue('date', $date);
+        $stmt->bindValue('startDate', $startDate);
+        $stmt->bindValue('endDate', $endDate);
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -31,17 +37,22 @@ class UserRepository extends EntityRepository
      *
      * @return mixed, Array of events
      */
-    public function findAllEvents($patientId, $date)
+    public function findAllEvents($patientId, $startDate, $endDate)
     {
         $sql = "
-            SELECT `Event` AS `taskName`, 
-			`Begin` AS `startDate`, 
-			`End` AS `endDate` 
+            SELECT `Event` AS `taskName`,
+			`Begin` AS `startDate`,
+			`End` AS `endDate`
 			FROM `Data_" . $patientId . "`
-			WHERE DATE_FORMAT(`begin`, '%d/%b/%Y') = :date;
+			WHERE DATE(`begin`)
+            BETWEEN
+            STR_TO_DATE(:startDate,'%d/%b/%Y')
+            AND
+            STR_TO_DATE(:endDate,'%d/%b/%Y');
         ";
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
-        $stmt->bindValue('date', $date);
+        $stmt->bindValue('startDate', $startDate);
+        $stmt->bindValue('endDate', $endDate);
         $stmt->execute();
         return $stmt->fetchAll();
     }

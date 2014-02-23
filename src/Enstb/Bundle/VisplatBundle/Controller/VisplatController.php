@@ -32,9 +32,9 @@ class VisplatController extends Controller
             $patientId = $user->getId();
         }
         // Get first date of the patient
-        $date = $em->getRepository('EnstbVisplatBundle:User')->findFirstEventDate($patientId);
+        $startDate = $em->getRepository('EnstbVisplatBundle:User')->findFirstEventDate($patientId);
         // Create Status Graph, passing the first patient'id order by name
-        $graphJSON = $this->createStatusGraph($patientId, $date);
+        $graphJSON = $this->createStatusGraph($patientId, $startDate, $startDate);
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
             'jsonDataPieChart' => $graphJSON['pieChart'],
             'jsonDataGanttChart' => $graphJSON['ganttChart']
@@ -108,7 +108,7 @@ class VisplatController extends Controller
      *
      * @return \Symfony\Component\Form\Form
      */
-    public function DateFormAction(Request $request)
+    public function dateFormAction(Request $request)
     {
         $dateArray = array();
         // Get current user
@@ -134,10 +134,16 @@ class VisplatController extends Controller
 //            ))
 //            ->getForm();
         $form = $this->createFormBuilder()
-            ->add('date', 'choice', array(
+            ->add('startDate', 'choice', array(
                 'choices' => $dateArray,
                 'required' => true,
                 'label' => false
+            ))
+            ->add('endDate', 'choice', array(
+                'choices' => $dateArray,
+                'required' => true,
+                'label' => false,
+                'attr' => array('disabled' => 'disabled')
             ))
             ->getForm();
         return $this->render('EnstbVisplatBundle:Visplat:dateForm.html.twig', array(
@@ -155,7 +161,7 @@ class VisplatController extends Controller
         // Get the JSON object from Ajax
         $patient = json_decode($request->getContent());
         // Create the status graph
-        $graphJSON = $this->createStatusGraph($patient->id, $patient->date);
+        $graphJSON = $this->createStatusGraph($patient->id, $patient->startDate, $patient->endDate);
         return new Response(json_encode($graphJSON));
 
     }
@@ -194,16 +200,15 @@ class VisplatController extends Controller
      * @return array of JSON data
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function createStatusGraph($patientId, $date)
+    public function createStatusGraph($patientId, $startDate, $endDate)
     {
         // Create a doctrine manager
         $em = $this->getDoctrine()->getManager();
-        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patientId, $date);
-        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId, $date);
+        $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patientId, $startDate, $endDate);
+        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId, $startDate, $endDate);
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
-
         if (!$ganttEvents) {
             throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
