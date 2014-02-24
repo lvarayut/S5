@@ -2,6 +2,10 @@ enstb_visplat_homepage:
     pattern:  /
     defaults: { _controller: EnstbVisplatBundle:Visplat:status }
 
+enstb_visplat_dependency:
+    pattern: /dependency
+    defaults: { _controller: EnstbVisplatBundle:Visplat:dependency}
+
 enstb_visplat_ajax_update_patient:
     pattern: /ajax/patient
     defaults: { _controller: EnstbVisplatBundle:Visplat:handleAjaxUpdatePatient}

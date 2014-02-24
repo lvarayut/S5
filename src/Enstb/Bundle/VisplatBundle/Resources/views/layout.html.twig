@@ -40,8 +40,8 @@
                         {% render(controller('EnstbVisplatBundle:Visplat:patientForm')) %}
                     {% endif %}
                     <ul class="nav navbar-nav pull-right">
-                        <li class="active"><a href="#">ADLs</a></li>
-                        <li><a href="#">History</a></li>
+                        <li class="active"><a href="{{ path('enstb_visplat_homepage') }}">ADLs</a></li>
+                        <li><a href="{{ path('enstb_visplat_dependency') }}">Dependency</a></li>
                         <li><a href="#">Sensors</a></li>
                     </ul>
                 </div>

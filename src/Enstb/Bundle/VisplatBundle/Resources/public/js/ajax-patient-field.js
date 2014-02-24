@@ -4,10 +4,18 @@
 ///////////////////////////////////////////////////
 
 function updateGraph(patientId, startDate, endDate) {
+    // Set the current route
+    var route;
+    if ($("#piechart").length && $('#piechartTable').length) {
+        route = 'enstb_visplat_homepage';
+    }
+    else if ($("#chordDiagram").length && $('#chordDiagram').length) {
+        route = 'enstb_visplat_dependency';
+    }
     $.ajax({
         type: "POST",
         url: Routing.generate('enstb_visplat_ajax_update_patient'),
-        data: JSON.stringify({id: patientId, startDate: startDate, endDate: endDate}),
+        data: JSON.stringify({id: patientId, startDate: startDate, endDate: endDate, route: route}),
         dataType: "json",
         success: function (data) {
             // Verify an existence of #piechart
@@ -20,6 +28,10 @@ function updateGraph(patientId, startDate, endDate) {
             if ($('#ganttchart').length) {
                 document.getElementById('ganttchart').innerHTML = '';
                 createGanttChart(data['ganttChart']);
+            }
+            if ($('#chordDiagram').length) {
+                document.getElementById('chordDiagram').innerHTML = '';
+                createChordDiagram(data['events'], data['matrix']);
             }
             // Create responsive
             createResponsive();

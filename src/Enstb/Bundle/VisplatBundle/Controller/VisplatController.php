@@ -22,21 +22,8 @@ class VisplatController extends Controller
         if ($this->get('security.context')->isGranted('ROLE_SUPERADMIN') && $this->get('security.context')->isGranted('ROLE_ADMIN') == false) {
             return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
         }
-        // ADLs
-        $em = $this->getDoctrine()->getManager();
-        // Get current user
-        $user = $this->get('security.context')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-        // Verify whether the current is a doctor or a patient
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // Get first patient
-            $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
-            $patientId = $patient['id'];
-        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
-            $patientId = $user->getId();
-        }
-        // Get first date of the patient
-        $startDate = $em->getRepository('EnstbVisplatBundle:User')->findFirstEventDate($patientId);
+        $patientId = $this->getDefaultPatient();
+        $startDate = $this->getDefaultDate($patientId);
         // Create Status Graph, passing the first patient'id order by name
         $graphJSON = $this->createStatusGraph($patientId, $startDate, $startDate);
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
@@ -168,14 +155,27 @@ class VisplatController extends Controller
      */
     public function handleAjaxUpdatePatientAction(Request $request)
     {
+        // Get router object
+        $router = $this->get('router');
+        $currentUrl = $request->getUri();
+        // Get current route
         // Get the JSON object from Ajax
         $patient = json_decode($request->getContent());
+        // Verify whether the current user is Doctor or Patient
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            $graphJSON = $this->createStatusGraph($patient->id, $patient->startDate, $patient->endDate);
+            if ($patient->route == 'enstb_visplat_homepage') {
+                $graphJSON = $this->createStatusGraph($patient->id, $patient->startDate, $patient->endDate);
+            } elseif ($patient->route == 'enstb_visplat_dependency') {
+                $graphJSON = $this->createDependencyGraph($patient->id, $patient->startDate, $patient->endDate);
+            }
         } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
             // Get current user
             $user = $this->get('security.context')->getToken()->getUser();
-            $graphJSON = $this->createStatusGraph($user->getId(), $patient->startDate, $patient->endDate);
+            if ($patient->route == 'enstb_visplat_homepage') {
+                $graphJSON = $this->createStatusGraph($user->getId(), $patient->startDate, $patient->endDate);
+            } elseif ($patient->route == 'enstb_visplat_dependency') {
+                $graphJSON = $this->createDependencyGraph($user->getId(), $patient->startDate, $patient->endDate);
+            }
         }
         // Create the status graph
         return new Response(json_encode($graphJSON));
@@ -239,5 +239,59 @@ class VisplatController extends Controller
         return array('pieChart' => $jsonDataPieChart, 'ganttChart' => $jsonDataGanttChart);
     }
 
+    /**
+     * Generate Chord Diagram
+     * @param Request $request
+     * @return Response
+     */
+    public function dependencyAction(Request $request)
+    {
+        // Redirect admin to Admin page
+        if ($this->get('security.context')->isGranted('ROLE_SUPERADMIN') && $this->get('security.context')->isGranted('ROLE_ADMIN') == false) {
+            return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
+        }
+        $patientId = $this->getDefaultPatient();
+        $startDate = $this->getDefaultDate($patientId);
+        $eventMatrix = $this->createDependencyGraph($patientId, $startDate, $startDate);
+        return $this->render('EnstbVisplatBundle:Graph:dependency.html.twig', array(
+            'events' => $eventMatrix['events'],
+            'matrix' => $eventMatrix['matrix']
+        ));
+    }
 
+    public function createDependencyGraph($patientId, $startDate, $endDate)
+    {
+        // Create a doctrine manager
+        $em = $this->getDoctrine()->getManager();
+        $allEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId, $startDate, $endDate);
+        $distinctEvents = $em->getRepository('EnstbVisplatBundle:User')->findDistinctEvents($patientId, $startDate, $endDate);
+        $eventsMatrix = GraphChart::createChordDiagram($allEvents, $distinctEvents);
+        return array('events' => $eventsMatrix['events'], 'matrix' => $eventsMatrix['matrix']);
+
+    }
+
+    public function getDefaultPatient()
+    {
+        $em = $this->getDoctrine()->getManager();
+        // Get current user
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        // Verify whether the current is a doctor or a patient
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // Get first patient
+            $patient = $em->getRepository('EnstbVisplatBundle:User')->findFirstPatientsOfDoctor($user->getId());
+            $patientId = $patient['id'];
+        } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $patientId = $user->getId();
+        }
+        return $patientId;
+    }
+
+    public function getDefaultDate($patientId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // Get first date of the patient
+        $startDate = $em->getRepository('EnstbVisplatBundle:User')->findFirstEventDate($patientId);
+        return $startDate;
+    }
 }

@@ -57,6 +57,30 @@ class UserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
 
+    /**
+     * Fetch all distinct events
+     *
+     * @return mixed, Array of events
+     */
+    public function findDistinctEvents($patientId, $startDate, $endDate)
+    {
+        $sql = "
+            SELECT DISTINCT `Event` AS `taskName`
+			FROM `Data_" . $patientId . "`
+			WHERE DATE(`begin`)
+            BETWEEN
+            STR_TO_DATE(:startDate,'%d/%b/%Y')
+            AND
+            STR_TO_DATE(:endDate,'%d/%b/%Y')
+            ORDER BY `taskName`;
+        ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->bindValue('startDate', $startDate);
+        $stmt->bindValue('endDate', $endDate);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
 
     /**
      * Fetch all patients of the current doctor
