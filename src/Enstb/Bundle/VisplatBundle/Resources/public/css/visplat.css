@@ -92,14 +92,14 @@
     font-size: 35px;
     text-align: center;
 
-    color: rgba(179, 220, 237, 1);
-    color: -moz-linear-gradient(left, rgba(179, 220, 237, 1) 0%, rgba(41, 184, 229, 1) 50%, rgba(188, 224, 238, 1) 100%);
-    color: -webkit-gradient(left top, right top, color-stop(0%, rgba(179, 220, 237, 1)), color-stop(50%, rgba(41, 184, 229, 1)), color-stop(100%, rgba(188, 224, 238, 1)));
-    color: -webkit-linear-gradient(left, rgba(179, 220, 237, 1) 0%, rgba(41, 184, 229, 1) 50%, rgba(188, 224, 238, 1) 100%);
-    color: -o-linear-gradient(left, rgba(179, 220, 237, 1) 0%, rgba(41, 184, 229, 1) 50%, rgba(188, 224, 238, 1) 100%);
-    color: -ms-linear-gradient(left, rgba(179, 220, 237, 1) 0%, rgba(41, 184, 229, 1) 50%, rgba(188, 224, 238, 1) 100%);
-    color: linear-gradient(to right, rgba(179, 220, 237, 1) 0%, rgba(41, 184, 229, 1) 50%, rgba(188, 224, 238, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=1);
+color: rgba(48,173,219,1);
+color: -moz-linear-gradient(left, rgba(48,173,219,1) 0%, rgba(11,126,161,1) 50%, rgba(48,173,219,1) 100%);
+color: -webkit-gradient(left top, right top, color-stop(0%, rgba(48,173,219,1)), color-stop(50%, rgba(11,126,161,1)), color-stop(100%, rgba(48,173,219,1)));
+color: -webkit-linear-gradient(left, rgba(48,173,219,1) 0%, rgba(11,126,161,1) 50%, rgba(48,173,219,1) 100%);
+color: -o-linear-gradient(left, rgba(48,173,219,1) 0%, rgba(11,126,161,1) 50%, rgba(48,173,219,1) 100%);
+color: -ms-linear-gradient(left, rgba(48,173,219,1) 0%, rgba(11,126,161,1) 50%, rgba(48,173,219,1) 100%);
+color: linear-gradient(to right, rgba(48,173,219,1) 0%, rgba(11,126,161,1) 50%, rgba(48,173,219,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#30addb', endColorstr='#30addb', GradientType=1 );
 
 }
 
@@ -208,7 +208,7 @@ td {
 }
 
 .bar {
-    fill: #33b5e5;
+    fill: #30addb;
 }
 
 .bar-failed {
@@ -220,7 +220,7 @@ td {
 }
 
 .bar-succeeded {
-    fill: #33b5e5;
+    fill: #30addb;
 }
 
 .bar-killed {
