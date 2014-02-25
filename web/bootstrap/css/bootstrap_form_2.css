@@ -4,28 +4,39 @@
  * http://bootstrap.braincrafted.com
  */
 .bootstrap-time {
-  width: 100%;
+    width: 100%;
 }
+
 .bootstrap-time select {
-  display: inline-block;
-  width: auto;
+    display: inline-block;
+    width: auto;
 }
+
 .bootstrap-date {
-  width: 100%;
+    width: 100%;
 }
+
 .bootstrap-date select {
-  display: inline-block;
-  width: auto;
-  margin-right: 5px;
+    display: inline-block;
+    width: auto;
+    margin-right: 5px;
 }
+
 .bootstrap-datetime .bootstrap-time,
 .bootstrap-datetime .bootstrap-date {
-  display: inline-block;
-  width: auto;
+    display: inline-block;
+    width: auto;
 }
+
 .form-group .bc-collection li + li {
-  margin-top: 10px;
+    margin-top: 10px;
 }
+
+.form-inline .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .form-horizontal .col-lg-1 .col-1,
 .form-horizontal .col-lg-2 .col-1,
 .form-horizontal .col-lg-3 .col-1,
@@ -314,13 +325,15 @@
 .form-horizontal .col-lg-10 .col-sm-12,
 .form-horizontal .col-lg-11 .col-sm-12,
 .form-horizontal .col-lg12 .col-sm-12 {
-  padding-left: 0;
+    padding-left: 0;
 }
+
 form .has-error ul.help-block {
-  list-style: none;
-  padding-left: 0;
+    list-style: none;
+    padding-left: 0;
 }
+
 form .alert ul {
-  list-style: none;
-  padding-left: 0;
+    list-style: none;
+    padding-left: 0;
 }
