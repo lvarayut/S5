@@ -169,5 +169,28 @@ class UserRepository extends EntityRepository
         return $result[0]['begin'];
     }
 
+	
+	/**
+	* Calculate last time activity was made
+	*
+	*/
+	public function findLastTime($patientId, $startDate, $endDate)
+    {
+        $sql = "
+            SELECT DISTINCT `event`, MIN(TIMESTAMPDIFF( SECOND, `End`, NOW())) AS `lastTime`
+			FROM `Data_" . $patientId . "` 
+			WHERE DATE(`begin`)
+            BETWEEN
+            STR_TO_DATE(:startDate,'%d/%b/%Y')
+            AND
+            STR_TO_DATE(:endDate,'%d/%b/%Y')
+			GROUP BY `event` 
+        ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->bindValue('startDate', $startDate);
+        $stmt->bindValue('endDate', $endDate);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
 }

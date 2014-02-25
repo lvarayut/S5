@@ -58,8 +58,8 @@ function createPieChart(jsonData) {
 
 	// second arc for labels
 	var arc2 = d3.svg.arc()
-	.outerRadius(r + 50)
-	.innerRadius(r + 50);
+	.outerRadius(r + 100)
+	.innerRadius(r + 100);
 
 	// label attached to second arc
 
@@ -67,7 +67,7 @@ function createPieChart(jsonData) {
 	.attr("transform", function (d) {
 		return "translate(" + arc2.centroid(d) + ")";
 	})
-	.attr("dy", "5")
+	.attr("dy", "-2")
 	.style("text-anchor", "middle")
 	.text(function (d, i) {
 		if ((data[i].Duration) >= 10) {
@@ -90,7 +90,8 @@ function createPieChart(jsonData) {
 		// Make it responsive.
 		.attr("viewBox", "0 0 " + w*0.6 + " " + h)
 		.attr("preserveAspectRatio", "xMidYMid")
-		.attr("class", "resizeTable")
+		.attr("class", "resizeTable"),
+		
 		thead = table.append("thead"),
 		tbody = table.append("tbody");  
 		

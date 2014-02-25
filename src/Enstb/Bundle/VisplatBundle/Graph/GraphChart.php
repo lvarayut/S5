@@ -112,5 +112,16 @@ class GraphChart
         }
         return array('events' => $events, 'matrix' => $matrix);
     }
+	
+	
+	/**
+     * Create a status table
+     * @param $data all events from DB
+     * @return  JSON data
+     */
+    public static function createStatusTable($data)
+    {
+        return json_encode($data);
+    }
 
 }
