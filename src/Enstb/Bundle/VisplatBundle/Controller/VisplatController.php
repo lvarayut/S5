@@ -28,8 +28,8 @@ class VisplatController extends Controller
         // Create Status Graph, passing the first patient'id order by name
         $graphJSON = $this->createStatusGraph($patientId, $startDate, $startDate);
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
-            'jsonDataPieChart' => $graphJSON['pieChart'],
-            'jsonDataGanttChart' => $graphJSON['ganttChart']
+            'jsonDataPieChart' => $graphJSON['pieChart']
+
         ));
     }
 
@@ -228,20 +228,16 @@ class VisplatController extends Controller
         // Create a doctrine manager
         $em = $this->getDoctrine()->getManager();
         $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patientId, $startDate, $endDate);
-        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId, $startDate, $endDate);
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
-        if (!$ganttEvents) {
-            throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
-        }
+
 
         $startDateFormat = new \DateTime(date('Y-m-d', strtotime(str_replace('/', '-', $startDate))));
         $endDateFormat = new \DateTime(date('Y-m-d', strtotime(str_replace('/', '-', $endDate))));
         $diff = $startDateFormat->diff($endDateFormat);
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents, $diff->days + 1);
-        $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
-        return array('pieChart' => $jsonDataPieChart, 'ganttChart' => $jsonDataGanttChart);
+        return array('pieChart' => $jsonDataPieChart);
     }
 
     /**
@@ -260,7 +256,8 @@ class VisplatController extends Controller
         $eventMatrix = $this->createDependencyGraph($patientId, $startDate, $startDate);
         return $this->render('EnstbVisplatBundle:Graph:dependency.html.twig', array(
             'events' => $eventMatrix['events'],
-            'matrix' => $eventMatrix['matrix']
+            'matrix' => $eventMatrix['matrix'],
+            'jsonDataGanttChart' => $eventMatrix['ganttChart']
         ));
     }
 
@@ -271,7 +268,12 @@ class VisplatController extends Controller
         $allEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId, $startDate, $endDate);
         $distinctEvents = $em->getRepository('EnstbVisplatBundle:User')->findDistinctEvents($patientId, $startDate, $endDate);
         $eventsMatrix = GraphChart::createChordDiagram($allEvents, $distinctEvents);
-        return array('events' => $eventsMatrix['events'], 'matrix' => $eventsMatrix['matrix']);
+        $ganttEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllEvents($patientId, $startDate, $endDate);
+        if (!$ganttEvents) {
+            throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
+        }
+        $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
+        return array('events' => $eventsMatrix['events'], 'matrix' => $eventsMatrix['matrix'], 'ganttChart' => $jsonDataGanttChart);
 
     }
 
