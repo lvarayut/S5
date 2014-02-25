@@ -28,7 +28,7 @@ class VisplatController extends Controller
         // Create Status Graph, passing the first patient'id order by name
         $graphJSON = $this->createStatusGraph($patientId, $startDate, $startDate);
         return $this->render('EnstbVisplatBundle:Graph:status.html.twig', array(
-            'jsonDataPieChart' => $graphJSON['pieChart']
+            'jsonDataPieChart' => $graphJSON['pieChart'], 'jsonStatusTable' => $graphJSON['statusTable'], 
 
         ));
     }
@@ -228,16 +228,20 @@ class VisplatController extends Controller
         // Create a doctrine manager
         $em = $this->getDoctrine()->getManager();
         $pieEvents = $em->getRepository('EnstbVisplatBundle:User')->findAllGroupByEvent($patientId, $startDate, $endDate);
+		$jsonStatusTable = $em->getRepository('EnstbVisplatBundle:User')->findLastTime($patientId, $startDate, $endDate);
         if (!$pieEvents) {
             throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
-
+		if (!$jsonStatusTable) {
+            throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
+        }
 
         $startDateFormat = new \DateTime(date('Y-m-d', strtotime(str_replace('/', '-', $startDate))));
         $endDateFormat = new \DateTime(date('Y-m-d', strtotime(str_replace('/', '-', $endDate))));
         $diff = $startDateFormat->diff($endDateFormat);
         $jsonDataPieChart = GraphChart::createPieChart($pieEvents, $diff->days + 1);
-        return array('pieChart' => $jsonDataPieChart);
+		$jsonStatusTable = GraphChart::createStatusTable($jsonStatusTable);
+        return array('pieChart' => $jsonDataPieChart, 'statusTable'=>$jsonStatusTable);
     }
 
     /**

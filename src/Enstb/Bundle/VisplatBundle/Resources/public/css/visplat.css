@@ -61,6 +61,7 @@
 /* Navbar form */
 .navbar-form {
     padding: 0;
+	margin: 0;
 }
 
 /*Container*/
@@ -84,7 +85,7 @@
 #legend {
     position: relative;
     height: 100%;
-    padding: 10% 0;
+    padding: 10% 5%;
     display: inline;
 }
 
@@ -154,7 +155,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#30addb', end
     font-family: Arial;
 }
 
-#piechartTable {
+#piechartTable, #statustable {
     margin: 10px;
     display: inline-block;
 }
