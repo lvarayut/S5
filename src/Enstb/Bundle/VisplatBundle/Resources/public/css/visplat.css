@@ -108,6 +108,36 @@
     text-align: justify;
 }
 
+	/*For computers*/
+@media screen and (max-width: 1200px) {
+.head-legend {
+font-size: 35px;
+}
+.p-legend {
+font-size: 18px;
+}
+}
+
+	/*For tablets*/
+@media screen and (max-width: 992px) {
+.head-legend {
+font-size: 25px;
+}
+.p-legend {
+font-size: 14px;
+}
+}
+
+	/*For mobiles*/
+@media screen and (max-width: 768px) {
+.head-legend {
+font-size: 18px;
+}
+.p-legend {
+font-size: 12px;
+}
+}
+
 /*Pie Chart*/
 
 #piechart {

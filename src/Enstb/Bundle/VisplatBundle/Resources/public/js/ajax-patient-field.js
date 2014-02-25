@@ -41,66 +41,8 @@ function updateGraph(patientId, startDate, endDate) {
         }
     });
 }
-///////////////////////////////////////////////////
-// Update date field when the patientId is changed
-///////////////////////////////////////////////////
-function updateDateField(patientId) {
-    $.ajax({
-        type: "POST",
-        url: Routing.generate('enstb_visplat_ajax_update_date'),
-        data: JSON.stringify({id: patientId}),
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            // Declared the data as global variable
-            // Remove all the options inside the date selector
-            $('#form_startDate').empty();
-            $('#form_endDate').empty();
-            // Reappend them
-            for (i = 0; i < data.length; i++) {
-                $('#form_startDate').append(
-                    $('<option></option>').attr('value', data[i]).text(data[i])
-                );
-                $('#form_endDate').append(
-                    $('<option></option>').attr('value', data[i]).text(data[i])
-                )
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert('Error : ' + errorThrown);
-        }
-    });
-}
-///////////////////////////////////////////////////
-// Update the end date field depended on
-// start date field, should be more than
-// the start date field.
-///////////////////////////////////////////////////
-function updateEndDateField(patientId) {
-    $.ajax({
-        type: "POST",
-        url: Routing.generate('enstb_visplat_ajax_update_date'),
-        data: JSON.stringify({id: patientId}),
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            $('#form_endDate').empty();
-            for (i = 0; i < data.length; i++) {
-                if (Date.parse(data[i]) >= Date.parse($('#form_startDate').val())) {
-                    $('#form_endDate').append(
-                        $('<option></option>').attr('value', data[i]).text(data[i])
-                    );
-                }
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert('Error : ' + errorThrown);
-        }
-    });
-}
 
 $(document).ready(function () {
-    // Global variable
     $('#form_patient').change(function () {
 //        // Disabled the end date selector when the user is changed.
 //        $('#form_endDate').attr('disabled', 'disabled');
@@ -129,6 +71,7 @@ $(document).ready(function () {
         var startDate = $('#form_startDate').val();
         var endDate = $(this).val();
         updateGraph(patientId, startDate, endDate);
+
 
     });
 });
