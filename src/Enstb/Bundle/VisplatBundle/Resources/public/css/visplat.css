@@ -17,7 +17,38 @@
     top: 0;
     width: 100%;
     background: rgba(248, 248, 248, 0.95);
-    z-index: 1000;
+    z-index: 1;
+}
+
+/* Remove margin of the navbar-collapse*/
+.container > .navbar-header, .container > .navbar-collapse {
+    margin-right: 15px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+/* Make the navbar-collapse list on top of everything*/
+.navbar-collapse {
+    position: relative;
+    z-index: 1;
+    background: rgba(248, 248, 248, 1);
+}
+
+/* Transform navbar-collapse list in one row*/
+#vp-navbar-fix-wrapper .navbar-nav li {
+    display: inline-block;
+}
+
+.navbar-brand {
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 768px) {
+    .navbar-form {
+        display: inline-block;
+        margin-right: 10px;
+    }
 }
 
 /* Login form*/
@@ -239,3 +270,5 @@ td {
     height: 100%;
     margin: 10px;
 }
+
+

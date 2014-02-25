@@ -1,9 +1,19 @@
+// Affix
 $(function () {
     $('#vp-navbar-fix-wrapper').height($("#vp-navbar-fix").height());
     $('#vp-navbar-fix').affix({
         offset: { top: $('#vp-navbar-fix').offset().top }
     });
 });
+
+
+// Add .active into a navbar-menu
+$(function () {
+    var url = window.location;
+    $('ul.nav a').filter(function () {
+        return this.href == url;
+    }).parent().addClass('active');
+})
 
 // Add responsive graph
 function createResponsive() {
