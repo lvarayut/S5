@@ -1,4 +1,5 @@
 function createChordDiagram(events, matrix) {
+    // pieChart
     var textLabel = d3.scale.ordinal().range(events);
     var chord = d3.layout.chord()
         .padding(.05)

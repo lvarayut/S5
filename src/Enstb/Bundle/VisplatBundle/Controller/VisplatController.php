@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Enstb\Bundle\VisplatBundle\Graph\GraphChart;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class VisplatController extends Controller
 {
@@ -234,7 +235,11 @@ class VisplatController extends Controller
         if (!$ganttEvents) {
             throw $this->createNotFoundException('Unable to find events for the given date, Are you sure that your dataset is correct?');
         }
-        $jsonDataPieChart = GraphChart::createPieChart($pieEvents);
+
+        $startDateFormat = new \DateTime(date('Y-m-d', strtotime(str_replace('/', '-', $startDate))));
+        $endDateFormat = new \DateTime(date('Y-m-d', strtotime(str_replace('/', '-', $endDate))));
+        $diff = $startDateFormat->diff($endDateFormat);
+        $jsonDataPieChart = GraphChart::createPieChart($pieEvents, $diff->days + 1);
         $jsonDataGanttChart = GraphChart::createGanttChart($ganttEvents);
         return array('pieChart' => $jsonDataPieChart, 'ganttChart' => $jsonDataGanttChart);
     }

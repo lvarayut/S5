@@ -1,35 +1,41 @@
 {% extends 'EnstbVisplatBundle::layout.html.twig' %}
 {% block graph %}
-   <!-- Pie Chart -->
+    <!-- Pie Chart -->
     <script src="{{ asset('bundles/enstbvisplat/js/piechart.js') }}"></script>
-	<div class = "col-lg-12 col-md-12 col-sm-12" style="height:100%;">
-		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" id="piechart"></div>
-		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" id="legend">
-			<h2 class="head-legend">Time consuming activities</h2>
-			<hr>
-			<p class="p-legend">This pie chart shows the time consuming activities of the patient. For more details, please refer to the table below.</p>
-		</div>
-	</div>
-	<div class = "col-lg-12 col-md-12 col-sm-12" style="height:100%; width:100%; border: 1px solid transparent; background-color: #f8f8f8;border-color: #e7e7e7; ">
-		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" id="legend">
-			<h2 class="head-legend">Details</h2>
-			<hr>
-			<p class="p-legend">This table details the above pie chart. For each event, you can find the frequency of occurences and also the proportion of time it represents compared to the period you consider (whether day, week or month).</p>
-		</div>
-		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-			<table class="table" id="piechartTable"></table>
-		</div>
-	</div>
+    <div class="col-lg-12 col-md-12 col-sm-12" style="height:100%;">
+        <div class="col-lg-4 col-lg-push-7 col-md-4 col-sm-push-7 col-sm-4  col-xs-12" id="legend">
+            <h2 class="head-legend">Time consuming activities</h2>
+            <hr>
+            <p class="p-legend">This pie chart shows the time consuming activities of the patient. For more details,
+                please refer to the table below.</p>
+        </div>
+        <div class="col-lg-7 col-lg-pull-4 col-md-7 col-sm-pull-4 col-sm-7 col-xs-12" id="piechart"></div>
+
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12"
+         style="height:100%; width:100%; border: 1px solid transparent; background-color: #f8f8f8;border-color: #e7e7e7; ">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" id="legend">
+            <h2 class="head-legend">Details</h2>
+            <hr>
+            <p class="p-legend">This table details the above pie chart. For each event, you can find the frequency of
+                occurences and also the proportion of time it represents compared to the period you consider (whether
+                day, week or month).</p>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <table class="table" id="piechartTable"></table>
+        </div>
+    </div>
     <script>createPieChart({{ jsonDataPieChart|json_encode|raw }})</script>
-	<!-- Gantt Chart -->
-	<script src="{{ asset('bundles/enstbvisplat/js/ganttchart.js') }}"></script>
-	<div class = "col-lg-12 col-md-12 col-sm-12" style="height:100%;">
-		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" id="ganttchart"></div>
-		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" id="legend">
-			<h2 class="head-legend">Gantt Chart</h2>
-			<hr>
-			<p class="p-legend">This Gantt chart shows the use of time by your patient. You can see the frequencies and times of days for the different activities performed.</p>
-		</div>
-	</div>
-	<script>createGanttChart({{ jsonDataGanttChart|json_encode|raw }})</script>
+    <!-- Gantt Chart -->
+    <script src="{{ asset('bundles/enstbvisplat/js/ganttchart.js') }}"></script>
+    <div class="col-lg-12 col-md-12 col-sm-12" style="height:100%;">
+        <div class="col-lg-4 col-lg-push-7 col-md-4 col-sm-push-7 col-sm-4  col-xs-12" id="legend">
+            <h2 class="head-legend">Gantt Chart</h2>
+            <hr>
+            <p class="p-legend">This Gantt chart shows the use of time by your patient. You can see the frequencies and
+                times of days for the different activities performed.</p>
+        </div>
+        <div class="col-lg-7 col-lg-pull-4 col-md-7 col-sm-pull-4 col-sm-7 col-xs-12" id="ganttchart"></div>
+    </div>
+    <script>createGanttChart({{ jsonDataGanttChart|json_encode|raw }})</script>
 {% endblock %}

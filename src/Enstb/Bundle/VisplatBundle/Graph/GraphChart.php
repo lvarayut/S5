@@ -13,12 +13,12 @@ class GraphChart
      * @param $data all events from DB
      * @return  JSON data
      */
-    public static function createPieChart($data)
+    public static function createPieChart($data, $days)
     {
 
 // total as 24 hours (in seconds) // has to be changed if change of scale (week, month)
 
-        $total = 24 * 3600;
+        $total = 24 * 3600 * $days;
 
         for ($i = 0; $i < sizeof($data); $i++) {
             $data[$i]['Duration'] = $data[$i]['Time'] / $total;
