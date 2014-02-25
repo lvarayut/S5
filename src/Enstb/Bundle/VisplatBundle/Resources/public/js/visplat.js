@@ -7,32 +7,48 @@ $(function () {
 
 // Add responsive graph
 function createResponsive() {
-//resizePieChart
-    var aspect = document.getElementById("piechart").offsetHeight / document.getElementById("piechart").offsetWidth;
-    chart = $(".resizePieChart");
-    $(window).on("resize", function () {
-        var targetWidth = chart.parent().width();
-        chart.attr("width", targetWidth);
-        chart.attr("height", Math.round(targetWidth * aspect));
-    });
+    //resizePieChart
+    if ($('#piechart').length) {
+        var aspect = document.getElementById("piechart").offsetHeight / document.getElementById("piechart").offsetWidth;
+        chart = $(".resizePieChart");
+        $(window).on("resize", function () {
+            var targetWidth = chart.parent().width();
+            chart.attr("width", targetWidth);
+            chart.attr("height", Math.round(targetWidth * aspect));
+        });
+    }
 
-//resizeTable
-    var aspect2 = document.getElementById("piechartTable").offsetHeight / document.getElementById("piechartTable").offsetWidth;
-    table = $(".resizeTable");
-    $(window).on("resize", function () {
-        var targetWidth = table.parent().width();
-        table.attr("width", targetWidth);
-        table.attr("height", targetWidth * aspect2);
-    });
+    //resizeTable
+    if ($('#piechartTable').length) {
+        var aspect2 = document.getElementById("piechartTable").offsetHeight / document.getElementById("piechartTable").offsetWidth;
+        table = $(".resizeTable");
+        $(window).on("resize", function () {
+            var targetWidth = table.parent().width();
+            table.attr("width", targetWidth);
+            table.attr("height", targetWidth * aspect2);
+        });
+    }
 
-//resizeGanttChart
-    var aspect3 = document.getElementById("ganttchart").offsetHeight / document.getElementById("ganttchart").offsetWidth;
-    gantt = $(".resizeGanttChart");
-    $(window).on("resize", function () {
-        var targetWidth = table.parent().width();
-        gantt.attr("width", targetWidth);
-        gantt.attr("height", targetWidth * aspect3);
-    });
+    //resizeGanttChart
+    if ($('#ganttchart').length) {
+        var aspect3 = document.getElementById("ganttchart").offsetHeight / document.getElementById("ganttchart").offsetWidth;
+        gantt = $(".resizeGanttChart");
+        $(window).on("resize", function () {
+            var targetWidth = gantt.parent().width();
+            gantt.attr("width", targetWidth);
+            gantt.attr("height", targetWidth * aspect3);
+        });
+    }
+
+    if ($('#chordDiagram').length) {
+        var aspect4 = document.getElementById("chordDiagram").offsetHeight / document.getElementById("chordDiagram").offsetWidth;
+        chordDiagram = $(".resizeChordDiagram");
+        $(window).on("resize", function () {
+            var targetWidth = chordDiagram.parent().width();
+            chordDiagram.attr("width", targetWidth);
+            chordDiagram.attr("height", targetWidth * aspect4);
+        });
+    }
 }
 $(document).ready(function () {
     createResponsive();
