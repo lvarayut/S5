@@ -58,16 +58,16 @@ function createPieChart(jsonData) {
 
 	// second arc for labels
 	var arc2 = d3.svg.arc()
-	.outerRadius(r)
-	.innerRadius(r + 150);
+	.outerRadius(r + 50)
+	.innerRadius(r + 50);
 
 	// label attached to second arc
 
-	arcs.append("text")
+	arcs.append("svg:text")
 	.attr("transform", function (d) {
 		return "translate(" + arc2.centroid(d) + ")";
 	})
-	.attr("dy", "-2.5em")
+	.attr("dy", "5")
 	.style("text-anchor", "middle")
 	.text(function (d, i) {
 		if ((data[i].Duration) >= 10) {
