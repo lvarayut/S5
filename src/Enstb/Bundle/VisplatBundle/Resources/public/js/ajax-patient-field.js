@@ -33,6 +33,10 @@ function updateGraph(patientId, startDate, endDate) {
                 document.getElementById('chordDiagram').innerHTML = '';
                 createChordDiagram(data['events'], data['matrix']);
             }
+            if ($('#statustable').length) {
+                document.getElementById('statustable').innerHTML = '';
+                createStatusTable(data['statusTable']);
+            }
             // Create responsive
             createResponsive();
         },

@@ -59,6 +59,16 @@ function createResponsive() {
             chordDiagram.attr("height", targetWidth * aspect4);
         });
     }
+
+    if ($('#statustable').length) {
+        var aspect5 = document.getElementById("statustable").offsetHeight / document.getElementById("statustable").offsetWidth;
+        statusTable = $(".resizeStatusTable");
+        $(window).on("resize", function () {
+            var targetWidth = statusTable.parent().width();
+            statusTable.attr("width", targetWidth);
+            statusTable.attr("height", targetWidth * aspect5);
+        });
+    }
 }
 $(document).ready(function () {
     createResponsive();

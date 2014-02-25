@@ -32,8 +32,8 @@ var margin = {top: 40, right: 20, bottom: 0, left: 50};
 		// Make it responsive.
 		.attr("viewBox", "0 0 " + w*0.6 + " " + h)
 		.attr("preserveAspectRatio", "xMidYMid")
-		.attr("class", "resizeTable"),
-		
+            .attr("class", "resizeStatusTable"),
+
         thead = table.append("thead"),
         tbody = table.append("tbody");
 
