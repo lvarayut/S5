@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-function selectFieldChanged(id) {
-    $.ajax({
-        type: "POST",
-        url: Routing.generate('enstb_visplat_ajax_update_patient'),
-        data: JSON.stringify({id: id}),
-        dataType: "json",
-        success: function (data) {
-            // Remove old graphs
-            document.getElementById('piechart').innerHTML = '';
-            document.getElementById('piechartTable').innerHTML = '';
-            document.getElementById('ganttchart').innerHTML = '';
-            // Create new graphs
-            createPieChart(data[0]);
-            createGanttChart(data[1]);
-=======
 ///////////////////////////////////////////////////
 // Update the graphs with new data
 // depended on patient, startDate, endDate
@@ -49,7 +33,6 @@ function updateGraph(patientId, startDate, endDate) {
                 document.getElementById('chordDiagram').innerHTML = '';
                 createChordDiagram(data['events'], data['matrix']);
             }
->>>>>>> f1de8d8f6721d515c12da6b8d4d6cb8d368f4b69
             // Create responsive
             createResponsive();
         },
@@ -61,12 +44,6 @@ function updateGraph(patientId, startDate, endDate) {
 
 $(document).ready(function () {
     $('#form_patient').change(function () {
-<<<<<<< HEAD
-        var id = $(this).val();
-        // Get the current route
-        var pathname = window.location.pathname;
-        selectFieldChanged(id)
-=======
 //        // Disabled the end date selector when the user is changed.
 //        $('#form_endDate').attr('disabled', 'disabled');
         var patientId = $(this).val();
@@ -95,6 +72,6 @@ $(document).ready(function () {
         var endDate = $(this).val();
         updateGraph(patientId, startDate, endDate);
 
->>>>>>> f1de8d8f6721d515c12da6b8d4d6cb8d368f4b69
+
     });
 });
