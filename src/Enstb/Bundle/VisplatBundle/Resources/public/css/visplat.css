@@ -90,9 +90,7 @@ display: inline;
 }
 
 .head-legend {
-font-size: 35px;
 text-align: center;
-
 color: rgba(179,220,237,1);
 color: -moz-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
 color: -webkit-gradient(left top, right top, color-stop(0%, rgba(179,220,237,1)), color-stop(50%, rgba(41,184,229,1)), color-stop(100%, rgba(188,224,238,1)));
@@ -101,13 +99,41 @@ color: -o-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, 
 color: -ms-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
 color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=1 );
-
 }
 
 .p-legend {
-font-size: 18px;
 color: #5A5A5A;
 text-align: justify;
+}
+
+	/*For computers*/
+@media screen and (max-width: 1200px) {
+.head-legend {
+font-size: 35px;
+}
+.p-legend {
+font-size: 18px;
+}
+}
+
+	/*For tablets*/
+@media screen and (max-width: 992px) {
+.head-legend {
+font-size: 25px;
+}
+.p-legend {
+font-size: 14px;
+}
+}
+
+	/*For mobiles*/
+@media screen and (max-width: 768px) {
+.head-legend {
+font-size: 18px;
+}
+.p-legend {
+font-size: 12px;
+}
 }
 
 
