@@ -44,4 +44,4 @@ security:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/administrator, roles: [ROLE_ADMIN, ROLE_SUPERADMIN] }
         - { path: ^/data, roles: [ROLE_ADMIN, ROLE_SUPERADMIN] }
-        - { path: ^/, roles: [ROLE_USER] }
+        - { path: ^/, roles: [ROLE_USER, ROLE_SUPERADMIN] }

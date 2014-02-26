@@ -90,7 +90,7 @@ function updateEndDateField(patientId) {
         success: function (data) {
             $('#form_endDate').empty();
             for (i = 0; i < data.length; i++) {
-                if (Date.parse(data[i]) >= Date.parse($('#form_startDate').val())) {
+                if (parseDate(data[i]) >= parseDate($('#form_startDate').val())) {
                     $('#form_endDate').append(
                         $('<option></option>').attr('value', data[i]).text(data[i])
                     );
@@ -101,6 +101,18 @@ function updateEndDateField(patientId) {
             alert('Error : ' + errorThrown);
         }
     });
+}
+
+///////////////////////////////////////////////////
+// Parse date in the format '
+///////////////////////////////////////////////////
+function parseDate(date) {
+    var dateArray = date.split('/');
+    // Transform month into number
+    var month = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(dateArray[1]) / 3 + 1;
+    // Month index stars from 0
+    var newDate = new Date(dateArray[2], month - 1, dateArray[0]);
+    return newDate;
 }
 
 $(document).ready(function () {
