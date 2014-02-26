@@ -1,5 +1,12 @@
 function createChordDiagram(events, matrix) {
-    // pieChart
+    // Reformat events' text
+    var reg = new RegExp("(-)", "g");
+    for (i = 0; i < events.length; i++) {
+        events[i] = events[i].toLowerCase();
+        events[i] = events[i].charAt(0).toUpperCase() + events[i].substr(1);
+        events[i] = events[i].replace(reg, " ");
+    }
+
     var textLabel = d3.scale.ordinal().range(events);
     var chord = d3.layout.chord()
         .padding(.05)
@@ -21,6 +28,7 @@ function createChordDiagram(events, matrix) {
     window.svg = d3.select("#chordDiagram").append("svg")
         .attr("width", width)
         .attr("height", height)
+        .style("max-height", '400px')
         // Make it responsive.
         .attr("viewBox", "0 0 " + document.getElementById("chordDiagram").offsetWidth + " " + height)
         .attr("preserveAspectRatio", "xMidYMid")
@@ -51,7 +59,7 @@ function createChordDiagram(events, matrix) {
         .append("sgv:text")
         .on("mouseover", fade(.1))
         .on("mouseout", fade(1))
-        .attr("x", 6)
+        .attr("x", 10)
         .attr("dy", 15)
         .append("svg:textPath")
         .attr("xlink:href", function (d, i) {

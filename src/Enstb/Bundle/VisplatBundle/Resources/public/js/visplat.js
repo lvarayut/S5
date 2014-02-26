@@ -15,6 +15,10 @@ $(function () {
     }).parent().addClass('active');
 })
 
+$(function () {
+//    $('#legend').height($('#statustable').height());
+});
+
 // Add responsive graph
 function createResponsive() {
     //resizePieChart
