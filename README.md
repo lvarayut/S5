@@ -7,6 +7,7 @@ In a context of global population growing older, designing smart homes equipped 
 Collecting data from sensors is easy, but understanding this raw data is complex. Thus it is necessary to have a visualization tool to be able to read, understand and analyse the collected data.
 
 We have created a web platform to visualize and analyze such data.
+It was designed for medical staff as well as the patient himself and his family.
 
 It can be used with all devices (computer, tablet, mobile phone), and in most browsers : Internet Explorer, Google Chrome, Safari, Mozilla Firefox.
 
