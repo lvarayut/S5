@@ -3,6 +3,7 @@
 namespace Enstb\Bundle\VisplatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\PropertyAccess\Exception\RuntimeException;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -294,6 +295,9 @@ class VisplatController extends Controller
             $patientId = $patient['id'];
         } elseif ($this->get('security.context')->isGranted('ROLE_USER')) {
             $patientId = $user->getId();
+        }
+        if ($patientId == null) {
+            throw new RuntimeException("Unable to find a patient, you must add a patient to the current doctor by using Dashboard");
         }
         return $patientId;
     }
