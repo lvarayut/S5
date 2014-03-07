@@ -41,8 +41,10 @@
                     {% endif %}
                     <ul class="nav navbar-nav pull-right">
                         <li><a href="{{ path('enstb_visplat_homepage') }}">ADLs</a></li>
-                        <li><a href="{{ path('enstb_visplat_dependency') }}">Dependency</a></li>
-                        <li><a href="#">Sensors</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('enstb_visplat_dependency') }}">Dependency</a></li>
+                            <li><a href="#">Sensors</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <!--/.navbar-collapse -->
