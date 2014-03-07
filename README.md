@@ -14,8 +14,7 @@ It can be used with all devices (computer, tablet, mobile phone), and in most br
 
 ### Table of contents
 
-[put links]
-* User guide
+* [User guide](https://github.com/lvarayut/S5/wiki/User-Guide)
 * Developer guide
 * Things to improve in the future
 
