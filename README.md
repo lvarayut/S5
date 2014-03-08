@@ -1,8 +1,8 @@
 #<span><img src="http://www.telecom-bretagne.eu/themes/web2010/images/logo/telecom-bretagne.gif" alt="Telecom Bretagne" width="120" height="120" align="left" hspace="10"/> Sensors data analysis platform <br>for assisting elderly people</span>
 
-Symfony2: [![Symfony2 version](https://badge.fury.io/gh/symfony%2Fsymfony.png)](http://badge.fury.io/gh/symfony%2Fsymfony) 
-Bootstrap: [![Bootstrap version](https://badge.fury.io/gh/twbs%2Fbootstrap.png)](http://badge.fury.io/gh/twbs%2Fbootstrap) 
-D3JS: [![D3JS version](https://badge.fury.io/gh/mbostock%2Fd3.png)](http://badge.fury.io/gh/mbostock%2Fd3)
+**Symfony2**: [![Symfony2 version](https://badge.fury.io/gh/symfony%2Fsymfony.png)](http://badge.fury.io/gh/symfony%2Fsymfony) 
+**Bootstrap**: [![Bootstrap version](https://badge.fury.io/gh/twbs%2Fbootstrap.png)](http://badge.fury.io/gh/twbs%2Fbootstrap) 
+**D3JS**: [![D3JS version](https://badge.fury.io/gh/mbostock%2Fd3.png)](http://badge.fury.io/gh/mbostock%2Fd3)
 
 
 ## Introduction 
@@ -18,21 +18,24 @@ It can be used with all devices (computer, tablet, mobile phone), and in most fa
 ## Table of contents
 
  - [User guide](#user-guide)
- - [Developer guide](#Developer guide)
- - [Further development](#further development)
+ - [Developer guide](#Developer-guide)
+ - [Further development](#further-development)
  - [Feedback](#feedback)
 
 ## User guide
 
-The system is composed of three roles of user - **Patient/relatives**,**Medical staff**, and **Administrator**. Each role has different privilege to access contents. See more details on [wiki](https://github.com/lvarayut/S5/wiki/User-Guide) page.
+The system is composed of three roles of user - **Patient/relatives**, **Medical staff**, and **Administrator**. Each role has different privilege to access contents. See more details on [wiki](https://github.com/lvarayut/S5/wiki/User-Guide) page.
 
 ## Developer guide
 
-Developer guide describes clearly the procedure of **installation**, **Architecture**, and **Back-end site**. These should be very useful of developer to understand comprehendsively in our system before improving it. See more details on [wiki](https://github.com/lvarayut/S5/wiki/Developer-Guide) page.
+Developer guide describes clearly the procedure of **installation**, **Architecture**, and **Back-end site**. These should be very useful for developer to understand comprehensively in our system before improving it. See more details on [wiki](https://github.com/lvarayut/S5/wiki/Developer-Guide) page.
 
 **Note:** Developer should understand the basic of [Symfony2](http://symfony.com) and the concept of [MVC](http://en.wikipedia.org/wiki/Model–view–controller) in order to be able to develop efficiently. 
 
 ## Further Development
+
+We have planed to develop a lot of features that could make our system nicer, however, some of them cannot be done due to the limited of time. Therefore, all the features are listed here, on [wiki](https://github.com/lvarayut/S5/wiki/Further-Development),  to be a guideline for developer.
+
 
 ## Feedback
 
