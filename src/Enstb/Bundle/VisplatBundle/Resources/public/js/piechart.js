@@ -83,6 +83,29 @@ function createPieChart(jsonData) {
     function tabulate(data, columns) {
 
 
+    var sortFrequencyAscending = function (a, b) { return frequencyFunc(a) - frequencyFunc(b) }
+    var sortFrequencyDescending = function (a, b) { return frequencyFunc(b) - frequencyFunc(a) }
+	var sortDurationAscending = function (a, b) { return durationFunc(a) - durationFunc(b) }
+    var sortDurationDescending = function (a, b) { return durationFunc(b) - durationFunc(a) }
+    var sortEventAscending = function (a, b) { return eventFunc(a).localeCompare(eventFunc(b)); }
+    var sortEventDescending = function (a, b) { return eventFunc(b).localeCompare(eventFunc(a)); }
+    var frequencyAscending = true;
+	var durationAscending = true;
+    var eventAscending = true;
+	
+	var frequencyFunc = function(data) {
+    return data.Frequency;
+	}
+	
+	var durationFunc = function(data) {
+    return data.Duration;
+	}
+ 
+	var eventFunc = function(data) {
+    return data.Event;
+	}
+
+	
         var table = d3.select("#piechartTable")
                 .append("table")
                 .attr("width", document.getElementById("piechartTable").offsetWidth)
@@ -105,7 +128,27 @@ function createPieChart(jsonData) {
             .append("th")
             .text(function (column) {
                 return column;
-            });
+            })
+			.on("click", function (d) {
+			var sort;
+			
+            // Choose appropriate sorting function.
+            if (d === "Frequency") {
+                if (frequencyAscending) sort = sortFrequencyAscending;
+                else sort = sortFrequencyDescending;
+                frequencyAscending = !frequencyAscending;
+            } else if(d === "Duration") {
+                if (durationAscending) sort = sortDurationAscending;
+                else sort = sortDurationDescending;
+                durationAscending = !durationAscending;
+            }else if(d === "Event") {
+                if (eventAscending) sort = sortEventAscending;
+                else sort = sortEventDescending;
+                eventAscending = !eventAscending;
+            }
+			
+			var rows = tbody.selectAll("tr").sort(sort);
+        });
 
         // create a row for each object in the data
         var rows = tbody.selectAll("tr")
@@ -137,12 +180,6 @@ function createPieChart(jsonData) {
     activities.selectAll("thead th")
         .text(function (column) {
             return column.charAt(0).toUpperCase() + column.substr(1);
-        });
-
-    // sort by frequency
-    activities.selectAll("tbody tr")
-        .sort(function (a, b) {
-            return d3.descending(a.Frequency, b.Frequency);
         });
 
 
