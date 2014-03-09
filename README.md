@@ -34,7 +34,7 @@ Developer guide describes clearly the procedure of **installation**, **Architect
 
 ## Further Development
 
-We have planed to develop a lot of features that could make our system nicer, however, some of them cannot be done due to the limited of time. Therefore, all the features are listed here, on [wiki](https://github.com/lvarayut/S5/wiki/Further-Development),  to be a guideline for developer.
+We have planed to develop a lot of features that could make our system nicer, however, some of them cannot be done due to the limited time. Therefore, all the features are listed here, on [wiki](https://github.com/lvarayut/S5/wiki/Further-Development),  to be a guideline for developer.
 
 
 ## Feedback
