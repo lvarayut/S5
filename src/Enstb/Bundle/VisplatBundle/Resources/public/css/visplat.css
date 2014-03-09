@@ -207,6 +207,10 @@ th {
     height: 50px;
 }
 
+th:hover {
+	background-color:#f8f8f8;
+}
+
 td {
     font-size: 10pt;
     font-family: Arial;

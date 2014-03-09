@@ -18,7 +18,7 @@ It can be used with all devices (computer, tablet, mobile phone), and in most fa
 ## Table of contents
 
  - [User guide](#user-guide)
- - [Developer guide](#Developer-guide)
+ - [Developer guide](#developer-guide)
  - [Further development](#further-development)
  - [Feedback](#feedback)
 
