@@ -28,20 +28,15 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
         $rolePatient->setName('Patient');
         $rolePatient->setDescription('Patient can access his/her global information - Living ADLs, Notification system, and etc.');
 
-        $roleFamily = new Role();
-        $roleFamily->setName('Family');
-        $roleFamily->setDescription('Patient family');
 
         $manager->persist($roleAdmin);
         $manager->persist($roleDoctor);
         $manager->persist($rolePatient);
-        $manager->persist($roleFamily);
         $manager->flush();
 
         $this->addReference('role-admin', $roleAdmin);
         $this->addReference('role-doctor', $roleDoctor);
         $this->addReference('role-patient', $rolePatient);
-        $this->addReference('role-family', $roleFamily);
 
     }
 

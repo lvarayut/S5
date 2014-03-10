@@ -42,21 +42,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $userPatient->setDoctorId($userDoctor);
         $this->addReference('patientId', $userPatient);
 
-
-        $userFamily = new User();
-        $userFamily->setName('FamilyName');
-        $userFamily->setLastName('FamilyLastName');
-        $userFamily->setEmail('family@fake.com');
-        $userFamily->setUsername('family');
-        $userFamily->setPassword('family');
-        $userFamily->addRole($this->getReference('role-family'));
-        $userFamily->setDoctorId($userDoctor);
-
-
         $manager->persist($userAdmin);
         $manager->persist($userDoctor);
         $manager->persist($userPatient);
-        $manager->persist($userFamily);
         $manager->flush();
 
     }
