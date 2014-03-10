@@ -6,7 +6,6 @@ security:
         Administrator: [ROLE_SUPERADMIN]
         Doctor: [ROLE_USER, ROLE_ADMIN]
         Patient: ROLE_USER
-        Family: ROLE_USER
 
     providers:
         main:
