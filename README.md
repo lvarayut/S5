@@ -21,6 +21,7 @@ It can be used with all devices (computer, tablet, mobile phone), and in most fa
  - [Developer guide](#developer-guide)
  - [Further development](#further-development)
  - [Feedback](#feedback)
+ - [License](#license)
 
 ## User guide
 
@@ -42,3 +43,7 @@ We have planed to develop a lot of features that could make our system nicer, ho
 Feel free to contact us at :
 * varayut.lerdkanlayanawat@telecom-bretagne.eu
 * eloise.germain@telecom-bretagne.eu
+
+## License
+
+Code and documentation are available under the [CeCILL](http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html) license.
